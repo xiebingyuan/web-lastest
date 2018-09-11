@@ -64,7 +64,7 @@ export default {
   postUserQuery (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://120.25.197.233:8621/',
+      baseURL: 'http://47.100.239.45:8621/',
       url,
       data: {reqInfo: data, pageCount: 5, pageNumber: 1},
       timeout: 10000,
@@ -85,7 +85,7 @@ export default {
   postUserCommon (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://120.25.197.233:8621/',
+      baseURL: 'http://47.100.239.45:8621/',
       url,
       data: {reqInfo: data},
       timeout: 10000,
