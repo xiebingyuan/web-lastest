@@ -106,7 +106,7 @@ export default {
   postDeviceQuery (url, data, pageCount, pageNumber) {
     return axios({
       method: 'post',
-      baseURL: 'http://120.25.197.254:8622/',
+      baseURL: 'http://47.100.239.45:8622/',
       url,
       data: {reqInfo: data, pageCount: pageCount, pageNumber: pageNumber},
       timeout: 10000,
@@ -127,7 +127,7 @@ export default {
   postDeviceCommon (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://120.25.197.254:8622/',
+      baseURL: 'http://47.100.239.45:8622/',
       url,
       data: {reqInfo: data, uId: '4444e343', rlId: '333'},
       timeout: 10000,
