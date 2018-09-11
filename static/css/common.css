@@ -1,0 +1,54 @@
+.submit-btn {
+  font-size: 20px;
+  color: #ffffff !important;
+}
+.showClass {
+  color: black;
+  font-weight: bold;
+}
+.select-status {
+  background: #7e7777;
+}
+.bg-color-orange {
+	background-color: orange;
+}
+.no-find-content {
+	padding-left: 30% !important;
+	color: red;
+	height: 80px;
+}
+.icon-setup {
+  margin-right: 8px;
+  font-size: 20px;
+  color: black;
+}
+.tableTd {
+  text-align: left !important;
+  padding-left: 8px;
+}
+.tabbarBottom {
+  padding-bottom: 58px;
+}
+.textAlignLeft {
+  text-align: left !important;
+}
+.checkBoxClass {
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display: none;
+  }
+  .checkBoxClass+span {
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    display: inline-block;
+    background: url(/static/img/icon_checkbox.png) no-repeat;
+    background-position-x: 0px;
+    background-position-y: -25px;
+    position: relative;
+    top: 3px;
+  }
+  .checkBoxClass:checked+span {
+    background-position: 0 0px
+  }
