@@ -107,10 +107,10 @@
           this.$vux.toast.show({
             text: '提交成功!',
             position: 'middle',
-            type: 'warn',
+            type: 'success',
             time: 1500
           })
-          this.$router.push({path: '/fault/list', query: { faultCode: this.info.faultCode }})
+          this.$router.push({path: '/order/me', query: {}})
         }
       },
       checkSubmitField (field, msg) {

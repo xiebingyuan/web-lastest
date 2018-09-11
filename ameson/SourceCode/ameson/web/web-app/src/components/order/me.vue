@@ -50,7 +50,7 @@
     </div>  
     <tabbar style="position:fixed" v-show="selected!==''">
       <tabbar-item ><span slot="label" class="submit-btn"></span></tabbar-item>
-      <tabbar-item @click.native="sumbit" class="bg-color-orange"><span slot="label" class="submit-btn">催  单</span></tabbar-item>
+      <tabbar-item @click.native="referOrder" class="bg-color-orange"><span slot="label" class="submit-btn">催  单</span></tabbar-item>
     </tabbar>
     <div v-transfer-dom>
       <confirm v-model="showConfirm"
@@ -175,8 +175,8 @@
         this.isPick = true
         this.detail = this.infos[index]
       },
-      toSubmit () {
-        console.info(1)
+      referOrder () {
+        console.info(this.detail.uuid)
       },
       toCancle () {
         console.info(1)
