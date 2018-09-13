@@ -9,7 +9,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="250px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>  
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -71,7 +71,7 @@
         reqInfo: {
           custName: ''
         },
-        infos: {},
+        infos: [{custCode: 'A0001', custName: 'aliba'}],
         code: 0,
         pageNo: 1,
         pageSize: 5,
@@ -84,7 +84,7 @@
     methods: {
       async query (pageSize, pageNo) {
         let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', this.reqInfo, pageSize, pageNo)
-        this.infos = res.data
+        // this.infos = res.data
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
@@ -94,7 +94,7 @@
         console.info('sync data............')
       },
       process (custCode) {
-        this.$router.push({path: '/device/detail', query: { custCode: custCode }})
+        this.$router.push({path: '/device/query', query: { custCode: custCode }})
       },
       onScrollBottom () {
         if (this.onFetching) {

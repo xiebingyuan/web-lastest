@@ -117,7 +117,7 @@
           <i slot="icon" class="iconfont icon-kehuchaxun icon-grid"></i>
           <span class="icon-span">客服查询</span>
         </grid-item>
-        <grid-item :link="{ path: '/warn/list'}">
+        <grid-item :link="{ path: '/client/manage'}">
           <i slot="icon" class="iconfont icon-xiaoshouguanli icon-grid color-red"></i>
           <span class="icon-span">销售管理</span>
         </grid-item>
