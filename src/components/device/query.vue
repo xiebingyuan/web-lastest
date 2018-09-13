@@ -5,8 +5,8 @@
       <a slot="right" @click="resetData" style="margin-left: 20px">重置</a>
     </x-header>
     <group>
-      <x-input title="设备编号" v-model="devCode"  placeholder="请输入设备编号..."></x-input>
-      <x-input title="客户编号" v-model="custCode" placeholder="请输入客户编号..."></x-input>
+      <x-input title="设备编号" v-model="reqInfo.devCode"  placeholder="请输入设备编号..."></x-input>
+      <x-input title="客户编号" v-model="reqInfo.custCode" placeholder="请输入客户编号..."></x-input>
     </group>
     <group></group>
     <div>
@@ -99,6 +99,10 @@
         statusList: [],
         typeMap: {},
         deviceTypeMap: {},
+        reqInfo: {
+          devCode: '',
+          custCode: ''
+        },
         formData: {
           devCode: '',
           faultCode: '',
@@ -110,7 +114,12 @@
     mounted () {
       let id = this.$route.query.devCode
       if (id) {
-        this.devCode = id
+        this.reqInfo.devCode = id
+        this.query(this.pageSize, this.pageNo)
+      }
+      let custCode = this.$route.query.custCode
+      if (custCode) {
+        this.reqInfo.custCode = custCode
         this.query(this.pageSize, this.pageNo)
       }
       var data = new Map()
@@ -131,12 +140,6 @@
       }
       this.typeMap = data
       this.deviceTypeMap = deviceMap
-      // this.$nextTick(() => {
-      //   this.$refs.scrollerEvent.reset({top: 0})
-      // })
-      // this.$nextTick(() => {
-      //   this.$refs.scrollerBottom.reset({top: 0})
-      // })
     },
     watch: {
       devList: function (val, oldVal) {
@@ -149,14 +152,14 @@
     },
     methods: {
       async query (pageSize, pageNo) {
-        let formData = {}
-        if (this.devCode !== '') {
-          formData.devCode = this.devCode
-        }
-        if (this.custCode !== '') {
-          formData.custCode = this.custCode
-        }
-        let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', formData, pageSize, pageNo)
+        // let formData = {}
+        // if (this.devCode !== '') {
+        //   formData.devCode = this.devCode
+        // }
+        // if (this.custCode !== '') {
+        //   formData.custCode = this.custCode
+        // }
+        let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', this.reqInfo, pageSize, pageNo)
         if (res.code === 0 && res.data.length !== 0) {
           this.code = res.code
           this.devices = res.data
@@ -170,8 +173,8 @@
         this.pageSize = 5
       },
       resetData () {
-        this.devCode = ''
-        this.custCode = ''
+        this.reqInfo.devCode = ''
+        this.reqInfo.custCode = ''
         this.code = 0
         this.devices = {}
         this.pageSize = 5

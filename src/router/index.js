@@ -36,6 +36,7 @@ import OrderVerify from '@/components/order/verify'
 import OrderHandle from '@/components/order/handle'
 import OrderCount from '@/components/order/count'
 import ClientList from '@/components/client/list'
+import ClientManage from '@/components/client/manage'
 
 Vue.use(Router)
 
@@ -219,6 +220,11 @@ const routes = [
     path: '/client/list',
     name: 'ClientList',
     component: ClientList
+  },
+  {
+    path: '/client/manage',
+    name: 'ClientManage',
+    component: ClientManage
   }
 ]
 
