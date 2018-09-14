@@ -100,6 +100,7 @@
           custName: ''
         },
         devices: [],
+        deviceDetail: {},
         infos: [{custCode: 'A0001', custName: 'aliba'}],
         selectInfo: {},
         code: 0,
@@ -134,6 +135,10 @@
         if (res.code === 0) {
           this.devices = res.data
         }
+      },
+      choose (index) {
+        this.selected = index
+        this.deviceDetail = this.devices[index]
       },
       onScrollBottom () {
         if (this.onFetching) {
