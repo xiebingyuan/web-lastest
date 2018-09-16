@@ -66,7 +66,7 @@
 </template>
 
 <script>
-  import { CheckIcon, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, Scroller, LoadMore } from 'vux'
+  import { CheckIcon, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, Scroller, LoadMore, CellBox } from 'vux'
   export default {
     name: 'Query',
     components: {
@@ -80,7 +80,8 @@
       TabbarItem,
       CheckIcon,
       Scroller,
-      LoadMore
+      LoadMore,
+      CellBox
     },
     data () {
       return {
