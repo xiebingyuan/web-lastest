@@ -139,7 +139,7 @@
                         <th>通讯</th>
                       </tr>
                     </thead>
-                    <tbody v-for="(device,index) in deviceList" track-by="$index" v-if="code==0">
+                    <tbody v-for="(device,index) in deviceList" track-by="$index" >
                     <tr>
                       <td>
                         <input class="magic-checkbox" v-model="devList" type="checkbox" name="layout" :id="index" :value="device">
@@ -167,7 +167,62 @@
             </tabbar>
           </div>
         </popup>
-      </div>      
+      </div>
+      <div v-transfer-dom>
+        <confirm v-model="showConfirm"
+                 title="选择确认"
+                 @on-cancel="onCancel"
+                 @on-confirm="onConfirm">
+          <p style="text-align:center;">您确认要选择编号为{{selectDev}}?</p>
+        </confirm>
+      </div>
+      <div v-transfer-dom>
+        <confirm v-model="showAreaConfirm"
+                 title="选择确认"
+                 @on-cancel="onAreaCancel"
+                 @on-confirm="onAreaConfirm">
+          <p style="text-align:center;">您确认要选择该辖区?</p>
+        </confirm>
+      </div>
+      <div v-transfer-dom>
+        <popup v-model="showAreaPopup" height="100%">
+          <div class="popup1">
+            <x-header :left-options="{showBack: false}">
+              <a slot="left" @click="closeAreaPopup">
+                <i slot="icon" class="iconfont icon-guanbi icon-grid"></i>
+              </a>
+              设备所属辖区选择
+            </x-header>
+            <group>
+            </group>
+            <div>  
+              <x-table full-bordered style="background-color:#fff;" >
+                <thead>
+                <tr style="background-color: #F7F7F7">
+                  <th></th>
+                  <th>辖区编号</th>
+                  <th>辖区名称</th>
+                </tr>
+                </thead>
+                <tbody v-for="(info,index) in areaList" track-by="$index" >
+                <tr>
+                  <td>
+                    <input class="magic-checkbox" v-model="areaIdList" type="checkbox" name="layout" :id="index" :value="info">
+                        <label :for="index"></label>
+                  </td>
+                  <td class="tableTd">{{info.key}}</td>
+                  <td class="tableTd">{{info.name}}</td>
+                </tr>
+                </tbody>
+              </x-table>
+            </div>
+            <tabbar style="position:fixed">
+              <tabbar-item><span slot="label"></span></tabbar-item>
+              <tabbar-item @click.native="selectAreaCode" class="bg-color-orange"><span slot="label" class="submit-btn">选 择</span></tabbar-item>
+            </tabbar>
+          </div>
+        </popup>
+      </div>        
       <group v-if="code!=0" >
         <cell-box class="no-find-content">
           无符合条件数据！
@@ -178,7 +233,7 @@
 </template>
 
 <script>
-  import { Selector, TransferDom, XSwitch, XHeader, XButton, Group, Cell, XInput, XTable, CellBox, Popup, Tab, TabItem, Actionsheet, Scroller, LoadMore, Tabbar, TabbarItem, Flexbox, FlexboxItem } from 'vux'
+  import { Selector, TransferDom, XSwitch, XHeader, XButton, Group, Cell, XInput, XTable, CellBox, Popup, Tab, TabItem, Actionsheet, Scroller, LoadMore, Tabbar, TabbarItem, Flexbox, FlexboxItem, Confirm } from 'vux'
   export default {
     name: 'Home',
     directives: {
@@ -203,7 +258,8 @@
       Tabbar,
       TabbarItem,
       Flexbox,
-      FlexboxItem
+      FlexboxItem,
+      Confirm
     },
     data () {
       return {
@@ -219,8 +275,12 @@
         seriesMap: [], // 系列数据
         typeList: [], // 类型选择框
         typeMap: [], // 类型数据
+        areaList: [], // 辖区列表
+        areaIdList: [], // 选择辖区列表
         deviceInfo: {
-          devCode: 'A0001'
+          devCode: 'A0001',
+          areaCode: '',
+          areaName: ''
         },
         selectReq: {
           devCode: '',
@@ -238,7 +298,11 @@
         onFetching: false,
         showListPopup: false,
         showAddPopup: false,
-        showDevicePopup: false
+        showDevicePopup: false,
+        showConfirm: false,
+        selectDev: '',
+        showAreaPopup: false,
+        showAreaConfirm: false
       }
     },
     mounted () {
@@ -262,6 +326,13 @@
           let newInfo = {key: key, value: name}
           this.typeList.push(newInfo)
           typeData.set(key, name)
+        }
+        // 业务区域
+        if (dict.dictParentId === 47) {
+          let key = dict.dictTypeValue
+          let name = dict.dictTypeCname
+          let newInfo = {key: key, value: name}
+          this.areaList.push(newInfo)
         }
       }
       this.typeMap = typeData
@@ -339,7 +410,50 @@
           })
           return
         }
+        this.selectDev = this.devList[0].devCode
+        this.showConfirm = true
+      },
+      selectAreaCode () {
+        if (this.areaIdList.length === 0) {
+          this.$vux.toast.show({
+            text: '请至少选择一条记录!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          return
+        }
+        if (this.areaIdList.length > 1) {
+          this.$vux.toast.show({
+            text: '只能选择一条记录!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          return
+        }
+        this.showAreaConfirm = true
+        this.selectAreaInfo = this.areaIdList[0]
+      },
+      onCancel () {
+        console.info('cancle operation..')
+      },
+      onConfirm () {
         this.deviceInfo.devCode = this.devList[0].devCode
+        this.showDevicePopup = false
+      },
+      onAreaCancel () {
+        console.info('cancle operation..')
+      },
+      onAreaConfirm () {
+        this.deviceInfo.areaCode = this.selectAreaInfo.key
+        this.showAreaPopup = false
+      },
+      selectArea () {
+        this.showAreaPopup = true
+      },
+      closeAreaPopup () {
+        this.showAreaPopup = false
       },
       onSelectScrollBottom () {
         if (this.onFetching) {
