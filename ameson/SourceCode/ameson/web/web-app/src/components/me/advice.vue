@@ -13,7 +13,6 @@
 
 <script type="text/javascript">
   import { XButton, XHeader, XTextarea, Group, XInput, Cell, Tabbar, TabbarItem } from 'vux'
-  // import qs from 'qs'
   export default {
     components: {
       XHeader,
@@ -28,28 +27,33 @@
     data () {
       return {
         name: '建议反馈',
-        advice: ''
+        reqInfo: {
+          uId: '',
+          advType: '',
+          advSubject: '',
+          advContent: ''
+        }
       }
     },
     methods: {
-      sumbit () {
-        var _this = this
-        if (_this.advice === '') {
-          _this.$vux.toast.show({
-            text: '请输入建议内容!',
+      async sumbit () {
+        let res = await this.$http.postUserCommon('/sysSoftwareVersionAdvice/addAdvice', this.reqInfo)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '提交成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+          this.$router.push({path: '/me', query: {}})
+        } else {
+          this.$vux.toast.show({
+            text: '提交失败!',
             position: 'middle',
             type: 'warn',
-            time: 1000
+            time: 1500
           })
-          return
         }
-        _this.$http({
-          method: 'post',
-          url: this.GLOBAL.deviceUrl + '/serviceOrder/getWaitHandleList',
-          data: {}
-        }).then(function (response) {
-          _this.infos = response.data.data
-        })
       }
     }
   }

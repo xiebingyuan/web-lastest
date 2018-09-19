@@ -21,29 +21,54 @@
     data () {
       return {
         name: '设置',
-        stringValue: ''
+        stringValue: '', // 1-表示提醒（开）；0 或记录不存在表示关；
+        reqInfo: {
+          uId: ''
+        },
+        info: {
+          uId: '',
+          smsRemindStatus: ''
+        }
       }
     },
     mounted () {
-      this.query()
+      this.queryStatus()
     },
     methods: {
-      changeStatus (value) {
+      async queryStatus () {
+        let res = await this.$http.postUserCommon('/userSmsRemindConfig/queryByUid', this.reqInfo)
+        if (res.code === 0) {
+          let result = res.data
+          this.stringValue = result.smsRemindStatus
+          this.info.uId = result.uId
+        } else {
+          this.$vux.toast.show({
+            text: '获取短信提醒失败!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
+      },
+      async changeStatus (value) {
         console.info('changeStatus = ' + value)
-        var _this = this
-        _this.$vux.toast.show({
-          text: '设置成功!',
-          position: 'middle',
-          type: 'success',
-          time: 1000
-        })
-        // _this.$http({
-        //   method: 'post',
-        //   url: this.GLOBAL.deviceUrl + '/serviceOrder/getWaitHandleList',
-        //   data: {}
-        // }).then(function (response) {
-        //   _this.infos = response.data.data
-        // })
+        this.info.smsRemindStatus = value
+        let res = await this.$http.postUserCommon('/userSmsRemindConfig/updateSmsStatus', this.info)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '更新状态成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+        } else {
+          this.$vux.toast.show({
+            text: '更新状态失败!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
       }
     },
     watch: {
