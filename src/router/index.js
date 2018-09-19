@@ -35,6 +35,8 @@ import OrderSubmit from '@/components/order/submit'
 import OrderVerify from '@/components/order/verify'
 import OrderHandle from '@/components/order/handle'
 import OrderCount from '@/components/order/count'
+import OrderAfterSale from '@/components/order/afterSale'
+import OrderMeInHome from '@/components/order/meInHome'
 import ClientList from '@/components/client/list'
 import ClientManage from '@/components/client/manage'
 
@@ -215,6 +217,16 @@ const routes = [
     path: '/order/count',
     name: 'OrderCount',
     component: OrderCount
+  },
+  {
+    path: '/order/afterSale',
+    name: 'OrderAfterSale',
+    component: OrderAfterSale
+  },
+  {
+    path: '/order/meInHome',
+    name: 'OrderMeInHome',
+    component: OrderMeInHome
   },
   {
     path: '/client/list',
