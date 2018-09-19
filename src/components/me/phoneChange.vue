@@ -5,7 +5,8 @@
     	<x-input title="原手机号" v-model="info.oldPhone"  placeholder="请输入原手机号..."></x-input>    	
     	<x-input title="新手机号" v-model="info.newPhone"  placeholder="请输入新手机号..."></x-input>
     	<x-input title="验证码" class="weui-vcode" v-model="info.verifyCode">
-        <x-button @click.native="sendCode" slot="right" type="primary" mini>发送验证码</x-button>
+        <x-button v-show="isSend" @click.native="sendCode" slot="right" type="primary" mini>发送验证码</x-button>
+        <x-button v-show="!isSend" slot="right" type="primary" mini>{{count}}秒后再发送</x-button>
       </x-input>
     </group>
     <tabbar style="position:fixed">
@@ -36,7 +37,10 @@
           oldPhone: '',
           newPhone: '',
           verifyCode: ''
-        }
+        },
+        isSend: true,
+        count: '',
+        timer: null
       }
     },
     mounted () {
@@ -44,17 +48,62 @@
     },
     methods: {
       query () {
-        var _this = this
-        _this.$http({
-          method: 'post',
-          url: this.GLOBAL.deviceUrl + '/serviceOrder/getWaitHandleList',
-          data: {}
-        }).then(function (response) {
-          _this.infos = response.data.data
-        })
+        console.info(111111)
       },
-      sendCode () {
-        console.info('send verify code....')
+      async sendCode () {
+        if (this.info.oldPhone === '') {
+          this.$vux.toast.show({
+            text: '请输入原手机号!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          return
+        }
+        if (this.info.newPhone === '') {
+          this.$vux.toast.show({
+            text: '请输入新手机号!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          return
+        }
+        let reqInfo = {}
+        reqInfo.uPhone = this.info.newPhone
+        let res = await this.$http.postUserCommon('/auth/sendSmsVerifyCode', reqInfo)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '发送成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+          this.btnChange()
+        } else {
+          this.$vux.toast.show({
+            text: '发送失败!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
+      },
+      btnChange () {
+        const TIME_COUNT = 60
+        if (!this.timer) {
+          this.count = TIME_COUNT
+          this.isSend = false
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--
+            } else {
+              this.isSend = true
+              clearInterval(this.timer)
+              this.timer = null
+            }
+          }, 1000)
+        }
       }
     }
   }
