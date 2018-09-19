@@ -97,7 +97,7 @@
               </flexbox>
               <flexbox>
                 <flexbox-item><div>
-                  <cell title="所属辖区" :value="deviceInfo.areaCode"></cell>
+                  <cell title="所属辖区" :value="deviceInfo.areaName"></cell>
                 </div></flexbox-item>
                 <flexbox-item><div class="flex-demo">
                   <a class="class-A" @click="selectArea()">选择辖区</a>
@@ -185,6 +185,14 @@
         </confirm>
       </div>
       <div v-transfer-dom>
+        <confirm v-model="showDeleteDeviceConfirm"
+                 title="选择确认"
+                 @on-cancel="onDeviceCancel"
+                 @on-confirm="onDeviceConfirm">
+          <p style="text-align:center;">您确认要删除该条记录?</p>
+        </confirm>
+      </div>
+      <div v-transfer-dom>
         <popup v-model="showAreaPopup" height="100%">
           <div class="popup1">
             <x-header :left-options="{showBack: false}">
@@ -211,7 +219,7 @@
                         <label :for="index"></label>
                   </td>
                   <td class="tableTd">{{info.key}}</td>
-                  <td class="tableTd">{{info.name}}</td>
+                  <td class="tableTd">{{info.value}}</td>
                 </tr>
                 </tbody>
               </x-table>
@@ -278,7 +286,8 @@
         areaList: [], // 辖区列表
         areaIdList: [], // 选择辖区列表
         deviceInfo: {
-          devCode: 'A0001',
+          devCode: '',
+          custCode: '',
           areaCode: '',
           areaName: ''
         },
@@ -302,7 +311,8 @@
         showConfirm: false,
         selectDev: '',
         showAreaPopup: false,
-        showAreaConfirm: false
+        showAreaConfirm: false,
+        showDeleteDeviceConfirm: false
       }
     },
     mounted () {
@@ -370,6 +380,16 @@
         this.showAddPopup = true
         this.actionType = '新增'
       },
+      toUpdate () {
+        this.showAddPopup = true
+        this.actionType = '编辑'
+        console.info(this.deviceDetail)
+        this.deviceInfo = this.deviceDetail
+      },
+      toDel () {
+        this.showDeleteDeviceConfirm = true
+        this.deviceInfo = this.deviceDetail
+      },
       closeAddPopup () {
         this.showAddPopup = false
       },
@@ -379,6 +399,31 @@
       },
       closeDevicePopup () {
         this.showDevicePopup = false
+      },
+      async dataSumbit () {
+        let res = null
+        if (this.actionType === '新增') {
+          this.deviceInfo.custCode = this.selectInfo.custCode
+          res = await this.$http.postDeviceCommon('/devCustRelation/addDevCustRelation', this.deviceInfo)
+        } else {
+          console.info(this.deviceInfo)
+        }
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '保存失败，请重新提交!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          this.showDevicePopup = false
+        } else {
+          this.$vux.toast.show({
+            text: '保存失败，请重新提交!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
       },
       async queryDevice (pageSize, pageNo) {
         let reqInfo = {}
@@ -442,11 +487,36 @@
         this.deviceInfo.devCode = this.devList[0].devCode
         this.showDevicePopup = false
       },
+      onDeviceCancel () {
+        console.info('cancle operation..')
+      },
+      async onDeviceConfirm () {
+        console.info(this.deviceDetail)
+        this.showDeleteDeviceConfirm = false
+        let res = await this.$http.postDeviceCommon('/devCustRelation/deleteCustDev', this.deviceInfo)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '删除成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+          this.process(this.selectInfo)
+        } else {
+          this.$vux.toast.show({
+            text: '删除失败，请重新提交!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
+      },
       onAreaCancel () {
         console.info('cancle operation..')
       },
       onAreaConfirm () {
         this.deviceInfo.areaCode = this.selectAreaInfo.key
+        this.deviceInfo.areaName = this.selectAreaInfo.value
         this.showAreaPopup = false
       },
       selectArea () {
