@@ -46,15 +46,7 @@
     },
     methods: {
       query () {
-        var _this = this
-        _this.$http({
-          method: 'post',
-          url: this.GLOBAL.httpUrl + 'getWaitEvents',
-          // url: this.GLOBAL.deviceUrl + '/serviceOrder/getWaitHandleList',
-          data: {}
-        }).then(function (response) {
-          _this.infos = response.data.data
-        })
+        console.info('22')
       },
       sync () {
         console.info('22')
