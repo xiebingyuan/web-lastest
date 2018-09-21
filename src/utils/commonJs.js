@@ -23,5 +23,10 @@ export default {
     }
     var data = window.localStorage.getItem('dictInfo')
     return JSON.parse(data)
+  },
+  // set userId to localStorage when user login 
+  getUserId: function () {
+    var userId = window.localStorage.getItem('userId')
+    return userId
   }
 }

@@ -38,15 +38,20 @@
     data () {
       return {
         name: '我的待办',
-        infos: {}
+        infos: {},
+        pageNo: 1,
+        pageSize: 20
       }
     },
     mounted () {
-      this.query()
+      this.query(this.pageSize, this.pageNo)
     },
     methods: {
-      query () {
-        console.info('22')
+      async query (pageSize, pageNo) {
+        let res = await this.$http.postDeviceQuery('/serviceOrder/getWaitHandleList', {}, pageSize, pageNo)
+        if (res.code === 0) {
+          this.infos = res.data
+        }
       },
       sync () {
         console.info('22')
