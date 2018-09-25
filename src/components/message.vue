@@ -132,7 +132,8 @@
         },
         unreadReq: {
           msgFlag: 2, // 未读状态
-          rlId: ''
+          rlId: 'J004',
+          uId: 'U00022'
         },
         unreadInfos: [],
         alreadyreadReq: {
@@ -155,10 +156,11 @@
         }
       }
       this.statusMap = dataMap
-      let uId = this.commonJs.getUserId()
-      this.unreadReq.rlId = uId
-      this.alreadyreadReq.rlId = uId
-      this.setReq.uuid = uId
+      // let uId = 'U00022'
+      // let uId = this.commonJs.getUserId()
+      // this.unreadReq.rlId = uId
+      // this.alreadyreadReq.rlId = uId
+      // this.setReq.uuid = uId
       this.queryUnRead()
       this.queryAlready()
     },
@@ -194,10 +196,11 @@
           this.unread = true
           this.alreadyread = false
           this.queryUnRead()
-          this.setRead()
         } else {
           this.unread = false
           this.alreadyread = true
+          this.setRead()
+          this.queryAlready()
         }
       }
     }
