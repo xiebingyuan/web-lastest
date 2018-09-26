@@ -27,5 +27,9 @@ export default {
   getUserId: function () { // set userId to localStorage when user login
     var userId = window.localStorage.getItem('userId')
     return userId
+  },
+  getUserInfo: function () {
+    var userInfo = window.localStorage.getItem('userInfo')
+    return JSON.parse(userInfo)
   }
 }
