@@ -9,7 +9,6 @@
 
 <script type="text/javascript">
   import { XHeader, Group, XInput, Cell, XSwitch } from 'vux'
-  // import qs from 'qs'
   export default {
     components: {
       XHeader,
@@ -40,9 +39,12 @@
       async queryStatus () {
         let res = await this.$http.postUserCommon('/userSmsRemindConfig/queryByUid', this.reqInfo)
         if (res.code === 0) {
-          let result = res.data
-          this.stringValue = result.smsRemindStatus
-          this.info.uId = result.uId
+          if (res.data.length > 0) {
+            let result = res.data[0]
+            console.info(result.smsRemindStatus)
+            this.stringValue = result.smsRemindStatus
+            this.info.uId = result.uId
+          }
         } else {
           this.$vux.toast.show({
             text: '获取短信提醒失败!',
@@ -75,8 +77,9 @@
     },
     watch: {
       stringValue (curVal, oldVal) {
-        console.log(curVal)
-        this.changeStatus(curVal)
+        if (oldVal !== '') {
+          this.changeStatus(curVal)
+        }
       }
     }
   }
