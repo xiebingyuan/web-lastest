@@ -32,6 +32,8 @@
       }
     },
     mounted () {
+      let userInfo = this.commonJs.getUserInfo()
+      this.reqInfo.uId = userInfo.uuid
       this.queryStatus()
     },
     methods: {
