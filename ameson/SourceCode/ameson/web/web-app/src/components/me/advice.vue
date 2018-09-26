@@ -48,7 +48,7 @@
           this.$router.push({path: '/me', query: {}})
         } else {
           this.$vux.toast.show({
-            text: '提交失败!',
+            text: '提交失败,请重新提交!',
             position: 'middle',
             type: 'warn',
             time: 1500

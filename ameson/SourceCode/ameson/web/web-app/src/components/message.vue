@@ -8,75 +8,26 @@
         </button-tab>
       </div>
     </x-header>
+    <group></group>
     <div v-if="unread" style="padding-bottom: 58px">
-      <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+      <x-table :cell-bordered="false" style="background-color:#fff;">
         <tbody>
-        <tr v-for="(info,index) in unreadInfos" track-by="$index" style="background-color: #F7F7F7">
+        <tr v-for="(info,index) in unreadInfos" track-by="$index" style="background-color: #F7F7F7" @click="toDetail(info)">
           <td>{{info.msgTypeName}}</td>
-          <td>{{info.msgDesc}}</td>
+          <td>{{info.contentAbbr}}</td>
           <td>{{info.creatTime}}</td>
         </tr>
-        <!-- <tr style="background-color: #F7F7F7">
-          <td>[设备]</td>
-          <td>A0001设备出现故障...</td>
-          <td>2018-07-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-07-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售后]</td>
-          <td>A002设备耗材使用预警...</td>
-          <td>2018-07-01</td>
-        </tr> -->
         </tbody>
       </x-table>
     </div>
     <div v-if="alreadyread" style="padding-bottom: 58px">
-      <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+      <x-table :cell-bordered="false" style="background-color:#fff;">
         <tbody>
-        <tr v-for="(info,index) in alreadyreadInfos" track-by="$index" style="background-color: #F7F7F7">
+        <tr v-for="(info,index) in alreadyreadInfos" track-by="$index" style="background-color: #F7F7F7" @click="toDetail(info)">
           <td>{{info.msgTypeName}}</td>
-          <td>{{info.msgDesc}}</td>
+          <td>{{info.contentAbbr}}</td>
           <td>{{info.creatTime}}</td>
         </tr>
-        <!-- <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-06-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-05-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-05-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-04-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-04-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售前]</td>
-          <td>有新客户注册申请...</td>
-          <td>2018-04-01</td>
-        </tr>
-        <tr style="background-color: #F7F7F7">
-          <td>[售后]</td>
-          <td>A002设备耗材使用预警...</td>
-          <td>2018-04-01</td>
-        </tr> -->
         </tbody>
       </x-table>
     </div>
@@ -102,7 +53,7 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XTable, LoadMore } from 'vux'
+  import { Tabbar, TabbarItem, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XTable, LoadMore, Group } from 'vux'
   export default {
     directives: {
       TransferDom
@@ -115,7 +66,8 @@
       XTable,
       LoadMore,
       Tabbar,
-      TabbarItem
+      TabbarItem,
+      Group
     },
     data () {
       return {
@@ -157,29 +109,31 @@
       }
       this.statusMap = dataMap
       // let uId = 'U00022'
-      // let uId = this.commonJs.getUserId()
-      // this.unreadReq.rlId = uId
-      // this.alreadyreadReq.rlId = uId
-      // this.setReq.uuid = uId
+      let uId = this.commonJs.getUserId()
+      this.unreadReq.rlId = uId
+      this.alreadyreadReq.rlId = uId
+      this.setReq.uuid = uId
       this.queryUnRead()
       this.queryAlready()
     },
     methods: {
       async queryUnRead () {
-        let req = await this.$http.postDeviceQuery('/msgSysMessage/getMsgSysMessageList', this.unreadReq, 1, 100)
+        let req = await this.$http.postDeviceQuery('/msgSysMessage/getMsgSysMessageList', this.unreadReq, 1000, 1)
         if (req.code === 0) {
           this.unreadInfos = req.data
           for (var i = this.unreadInfos.length - 1; i >= 0; i--) {
             this.unreadInfos[i].msgTypeName = this.statusMap.get(parseInt(this.unreadInfos[i].msgType))
+            this.unreadInfos[i].contentAbbr = this.unreadInfos[i].msgDesc.substring(0, 10) + '......'
           }
         }
       },
       async queryAlready () {
-        let req = await this.$http.postDeviceQuery('/msgSysMessage/getMsgSysMessageList', this.alreadyreadReq, 1, 100)
+        let req = await this.$http.postDeviceQuery('/msgSysMessage/getMsgSysMessageList', this.alreadyreadReq, 1000, 1)
         if (req.code === 0) {
           this.alreadyreadInfos = req.data
           for (var i = this.alreadyreadInfos.length - 1; i >= 0; i--) {
             this.alreadyreadInfos[i].msgTypeName = this.statusMap.get(parseInt(this.alreadyreadInfos[i].msgType))
+            this.alreadyreadInfos[i].contentAbbr = this.alreadyreadInfos[i].msgDesc.substring(0, 10) + '......'
           }
         }
       },
@@ -190,6 +144,10 @@
         } else {
           console.info('set message to read error')
         }
+      },
+      toDetail (info) {
+        console.info(info)
+        this.$router.push({path: '/me/messageDetail', query: { message: info }})
       },
       itemClick (type) {
         if (type === 1) {
