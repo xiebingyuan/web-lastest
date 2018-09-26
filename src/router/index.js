@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Workbench from '@/components/workbench'
 import Message from '@/components/message'
+import MessageDetail from '@/components/me/messageDetail'
 import Me from '@/components/me'
 import ParamList from '@/components/param/list'
 import Add from '@/components/device/add'
@@ -192,6 +193,11 @@ const routes = [
     path: '/me/upgradeUpload',
     name: 'UpgradeUpload',
     component: UpgradeUpload
+  },
+  {
+    path: '/me/messageDetail',
+    name: 'MessageDetail',
+    component: MessageDetail
   },
   {
     path: '/order/me',
