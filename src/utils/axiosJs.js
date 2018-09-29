@@ -65,7 +65,7 @@ export default {
     return axios({
       method: 'post',
       // baseURL: 'http://47.100.239.45:8621/',
-      baseURL: 'http://www.zjytech.cn/',
+      baseURL: 'http://www.zjytech.cn:8621/',
       url,
       data: {reqInfo: data, pageCount: 5, pageNumber: 1},
       timeout: 10000,
@@ -87,7 +87,7 @@ export default {
     return axios({
       method: 'post',
       // baseURL: 'http://47.100.239.45:8621/',
-      baseURL: 'http://www.zjytech.cn/',
+      baseURL: 'http://www.zjytech.cn:8621/',
       url,
       data: {reqInfo: data},
       timeout: 10000,
@@ -108,7 +108,7 @@ export default {
   postDeviceQuery (url, data, pageCount, pageNumber) {
     return axios({
       method: 'post',
-      baseURL: 'http://www.zjytech.cn/',
+      baseURL: 'http://www.zjytech.cn:8622/',
       // baseURL: 'http://47.100.239.45:8622/',
       url,
       data: {reqInfo: data, pageCount: pageCount, pageNumber: pageNumber},
@@ -130,7 +130,7 @@ export default {
   postDeviceCommon (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://www.zjytech.cn/',
+      baseURL: 'http://www.zjytech.cn:8622/',
       // baseURL: 'http://47.100.239.45:8622/',
       url,
       data: {reqInfo: data, uId: '4444e343', rlId: '333'},
@@ -152,7 +152,7 @@ export default {
   postDict (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://www.zjytech.cn/',
+      baseURL: 'http://www.zjytech.cn:8661/',
       url,
       data: data,
       timeout: 10000,
