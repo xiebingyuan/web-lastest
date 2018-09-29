@@ -8,7 +8,8 @@ export default {
     Vue.prototype.$http.postDict('', '')
   },
   initDict: function () {
-    Vue.prototype.$http.post('http://47.100.239.45:8661/getAllDict', {token: 'OIPI-89-8876-DAD-8686-JOIJIO-098786'}).then(function (response) {
+    // Vue.prototype.$http.post('http://47.100.239.45:8661/getAllDict', {token: 'OIPI-89-8876-DAD-8686-JOIJIO-098786'}).then(function (response) {
+    Vue.prototype.$http.post('http://www.zjytech.cn/getAllDict', {token: 'OIPI-89-8876-DAD-8686-JOIJIO-098786'}).then(function (response) {
       // console.log(response)
       Vue.prototype.GLOBAL.dictInfo = response
       if (window.localStorage) {
