@@ -79,11 +79,11 @@
         name: '我的',
         type: '1',
         list: [{
-          src: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          src: 'http://photo.16pic.com/00/52/65/16pic_5265951_b.jpg',
+          fallbackSrc: 'http://photo.16pic.com/00/52/65/16pic_5265951_b.jpg',
           title: '陈国坤',
           desc: '系统管理员',
-          url: '/component/cell'
+          url: '/me'
         }]
       }
     },

@@ -32,5 +32,10 @@ export default {
   getUserInfo: function () {
     var userInfo = window.localStorage.getItem('userInfo')
     return JSON.parse(userInfo)
+  },
+  getToken: function () {
+    // var token = window.localStorage.getItem('token')
+    var token = '222222'
+    return token
   }
 }

@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import Vue from 'vue'
+import commonJs from './commonJs'
 import { Loading, Toast } from 'vux'
 
 Vue.component('loading', Loading)
@@ -25,6 +26,11 @@ axios.interceptors.response.use(response => {
 }, error => {
   return Promise.resolve(error.response)
 })
+
+console.info(commonJs.getToken())
+// axios.defaults.headers.post['token'] = commonJs.getToken()
+
+// axios.defaults.headers.post['uId'] = commonJs.getToken()
 
 function checkStatus (response) {
   // loading
