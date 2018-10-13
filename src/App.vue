@@ -10,7 +10,7 @@ export default {
   methods: {
     pageChangeNotice () {
       let ip = window.parent.window.location
-      window.parent.window.postMessage('returnPage', ip, [])
+      window.parent.window.postMessage('returnPage', '*', [])
       console.info(111)
     }
   },
