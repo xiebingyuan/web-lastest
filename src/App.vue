@@ -8,14 +8,14 @@
 export default {
   name: 'app',
   methods: {
-    fetchDate () {
+    pageChangeNotice () {
       let ip = window.parent.window.location
       window.parent.window.postMessage('returnPage', ip, [])
       console.info(111)
     }
   },
   watch: {
-    '$route': 'fetchDate'
+    '$route': 'pageChangeNotice'
   }
 }
 </script>

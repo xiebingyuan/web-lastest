@@ -135,9 +135,14 @@
     mounted () {
       // this.queryDict()
       this.commonJs.getDictInfo()
-      // this.queryEvents()
+      window.addEventListener('message', this.receiveMsg, false)
     },
     methods: {
+      receiveMsg (e) {
+        console.log('Got a message!')
+        console.log('nMessage: ' + e.data)
+        console.log('nOrigin: ' + e.origin)
+      },
       async queryDict () {
         let res = await this.$http.postDict('/getAllDict', {token: 'OIPI-89-8876-DAD-8686-JOIJIO-098786'})
         this.GLOBAL.dictInfo = res
@@ -148,14 +153,6 @@
       },
       process (id) {
         console.info(id)
-      },
-      alertMsg () {
-        this.$vux.toast.show({
-          text: '请选择设备类型!',
-          position: 'middle',
-          type: 'warn',
-          time: 1000
-        })
       }
     }
   }

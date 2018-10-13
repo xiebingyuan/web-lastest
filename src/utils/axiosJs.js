@@ -28,9 +28,9 @@ axios.interceptors.response.use(response => {
 })
 
 console.info(commonJs.getToken())
-// axios.defaults.headers.post['token'] = commonJs.getToken()
+axios.defaults.headers.post['token'] = commonJs.getToken()
 
-// axios.defaults.headers.post['uId'] = commonJs.getToken()
+axios.defaults.headers.post['uId'] = commonJs.getToken()
 
 function checkStatus (response) {
   // loading
