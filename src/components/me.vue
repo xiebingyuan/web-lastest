@@ -79,8 +79,8 @@
         name: '我的',
         type: '1',
         list: [{
-          src: 'http://photo.16pic.com/00/52/65/16pic_5265951_b.jpg',
-          fallbackSrc: 'http://photo.16pic.com/00/52/65/16pic_5265951_b.jpg',
+          src: 'https://img.zcool.cn/community/01514355cdbab56ac725baa0130899.jpg@1280w_1l_2o_100sh.webp',
+          fallbackSrc: 'https://img.zcool.cn/community/01514355cdbab56ac725baa0130899.jpg@1280w_1l_2o_100sh.webp',
           title: '陈国坤',
           desc: '系统管理员',
           url: '/me'

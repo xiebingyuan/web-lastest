@@ -105,6 +105,7 @@
             type: 'success',
             time: 1500
           })
+          this.$router.push({path: '/me', query: {}})
         } else {
           this.$vux.toast.show({
             text: '更新失败!',

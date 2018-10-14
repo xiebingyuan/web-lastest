@@ -2,7 +2,10 @@
 	<div>
 		<x-header>{{name}}</x-header>
     <div id="app">
-      <a class="btn">上传图片</a>
+      <group>
+        <cell title="上传文件"></cell>
+      </group> 
+        <input type="file"/>
 <!--       <myUpload url="/upload"
         lang-type="en"
         field="img"
