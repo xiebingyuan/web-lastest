@@ -40,6 +40,9 @@ import OrderAfterSale from '@/components/order/afterSale'
 import OrderMeInHome from '@/components/order/meInHome'
 import ClientList from '@/components/client/list'
 import ClientManage from '@/components/client/manage'
+import DeviceMy from '@/components/device/my'
+import DeviceRunning from '@/components/device/running'
+import DeviceRepairOrder from '@/components/device/repairOrder'
 
 Vue.use(Router)
 
@@ -243,6 +246,21 @@ const routes = [
     path: '/client/manage',
     name: 'ClientManage',
     component: ClientManage
+  },
+  {
+    path: '/device/my',
+    name: 'DeviceMy',
+    component: DeviceMy
+  },
+  {
+    path: '/device/running',
+    name: 'DeviceRunning',
+    component: DeviceRunning
+  },
+  {
+    path: '/device/repairOrder',
+    name: 'DeviceRepairOrder',
+    component: DeviceRepairOrder
   }
 ]
 

@@ -51,11 +51,16 @@ export default {
   },
   getToken: function () {
     var token = window.localStorage.getItem('token')
-    // var token = '222222'
+    if (token === '' || token === null || token === 'undefined') {
+      return null
+    }
     return token.toString()
   },
   getRlId: function () {
     var rlId = window.localStorage.getItem('rlId')
+    if (rlId === '' || rlId === null || rlId === 'undefined') {
+      return null
+    }
     return rlId.toString()
   }
 }
