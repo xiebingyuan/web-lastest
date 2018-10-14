@@ -27,10 +27,10 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(error.response)
 })
 
-console.info(commonJs.getToken())
+console.info(commonJs.getUserInfo())
 axios.defaults.headers.post['token'] = commonJs.getToken()
-
-axios.defaults.headers.post['uId'] = commonJs.getToken()
+axios.defaults.headers.post['uId'] = commonJs.getUserId()
+axios.defaults.headers.post['rlId'] = commonJs.getRlId()
 
 function checkStatus (response) {
   // loading

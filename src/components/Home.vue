@@ -141,7 +141,22 @@
       receiveMsg (e) {
         console.log('Got a message!')
         console.log('nMessage: ' + e.data)
-        console.log('nOrigin: ' + e.origin)
+        console.log(this.commonJs.getToken())
+        if (this.commonJs.getToken() !== '' && e.data !== '' && e.data !== undefined) {
+          let reqData = e.data
+          console.log('current data is ' + (typeof reqData))
+          let uInfo = null
+          try {
+            uInfo = JSON.parse(reqData)
+          } catch (e) {
+          }
+          if (uInfo !== null) {
+            console.log('isTrue')
+            this.commonJs.setInitInfo(uInfo)
+          } else {
+            console.info('isFalse')
+          }
+        }
       },
       async queryDict () {
         let res = await this.$http.postDict('/getAllDict', {token: 'OIPI-89-8876-DAD-8686-JOIJIO-098786'})
