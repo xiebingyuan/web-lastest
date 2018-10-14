@@ -9,7 +9,7 @@
       <datetime title="出厂时间" v-model="info.devOutTime" format="YYYY-MM-DD HH:mm"></datetime>
     <!--   <x-input title="管理员密码" disabled value="******" ></x-input>
       <x-input title="SOS密码" disabled  value="******"></x-input> -->
-      <x-textarea :max="300" title="密码组" v-model="info.passGroup" placeholder="请输入三组密码组,格式如下:111111,222222,333333" :show-counter="false"></x-textarea>
+      <x-textarea :max="300" title="密码组" v-model="info.passGroup" placeholder="请输入至少三组密码组,格式如下:111111,222222,333333" :show-counter="false"></x-textarea>
     </group>
     <group>
       <cell title="默认规格参数">
@@ -18,9 +18,9 @@
         </div>
       </cell>
     </group>
-    <group class="detail-area">
+   <!--  <group class="detail-area">
       <x-textarea :max="200" @on-focus="onEvent('focus')"  name="detail" :show-counter="false"></x-textarea>
-    </group>
+    </group> -->
     <tabbar style="position:fixed">
       <tabbar-item ><span slot="label" class="submit-btn"></span></tabbar-item>
       <x-button type="primary" @click.native="sumbit">提  交</x-button>
@@ -245,6 +245,8 @@
         let response = await this.$http.postDeviceCommon('/devBaseInfo/addDevBaseInfo', this.info)
         if (response.code === 0) {
           this.showConfirm = true
+        } else {
+          
         }
       },
       onEvent (event) {
