@@ -62,5 +62,12 @@ export default {
       return null
     }
     return rlId.toString()
-  }
+  },
+  getUuid: function () { // set userId to localStorage when user login
+    var userInfo = this.getUserInfo()
+    if (userInfo != null) {
+      return userInfo.uuid
+    }
+    return ''
+  },
 }

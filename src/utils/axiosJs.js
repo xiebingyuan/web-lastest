@@ -139,7 +139,7 @@ export default {
       baseURL: 'http://www.zjytech.cn:8622/',
       // baseURL: 'http://47.100.239.45:8622/',
       url,
-      data: {reqInfo: data, uId: '4444e343', rlId: '333'},
+      data: {reqInfo: data},
       timeout: 10000,
       headers: {
         'X-Requested-With': 'Content-Type',
