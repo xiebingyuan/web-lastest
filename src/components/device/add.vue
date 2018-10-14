@@ -246,7 +246,12 @@
         if (response.code === 0) {
           this.showConfirm = true
         } else {
-          
+          this.$vux.toast.show({
+            text: '提交失败,请重新提交',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
         }
       },
       onEvent (event) {

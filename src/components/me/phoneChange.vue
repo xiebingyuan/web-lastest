@@ -2,9 +2,9 @@
 	<div>
 		<x-header>{{name}}</x-header>
     <group>
-    	<x-input title="原手机号" v-model="info.oldPhone"  placeholder="请输入原手机号..."></x-input>    	
+    	<x-input title="原手机号" v-model="info.uPhone"  placeholder="请输入原手机号..."></x-input>    	
     	<x-input title="新手机号" v-model="info.newPhone"  placeholder="请输入新手机号..."></x-input>
-    	<x-input title="验证码" class="weui-vcode" v-model="info.verifyCode">
+    	<x-input title="验证码" class="weui-vcode" v-model="info.smsCode">
         <x-button v-show="isSend" @click.native="sendCode" slot="right" type="primary" mini>发送验证码</x-button>
         <x-button v-show="!isSend" slot="right" type="primary" mini>{{count}}秒后再发送</x-button>
       </x-input>
@@ -34,9 +34,9 @@
       return {
         name: '手机号变更',
         info: {
-          oldPhone: '',
+          uPhone: '',
           newPhone: '',
-          verifyCode: ''
+          smsCode: ''
         },
         isSend: true,
         count: '',
@@ -44,14 +44,10 @@
       }
     },
     mounted () {
-      this.query()
     },
     methods: {
-      query () {
-        console.info(111111)
-      },
       async sendCode () {
-        if (this.info.oldPhone === '') {
+        if (this.info.uPhone === '') {
           this.$vux.toast.show({
             text: '请输入原手机号!',
             position: 'middle',
@@ -83,6 +79,33 @@
         } else {
           this.$vux.toast.show({
             text: '发送失败!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
+      },
+      async sumbit () {
+        if (this.info.smsCode === '') {
+          this.$vux.toast.show({
+            text: '请输入验证码!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+          return
+        }
+        let res = await this.$http.postUserCommon('/user/changePhone', this.info)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '更新成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+        } else {
+          this.$vux.toast.show({
+            text: '更新失败!',
             position: 'middle',
             type: 'warn',
             time: 1500

@@ -20,7 +20,7 @@ export default {
   setInitInfo: function (uInfo) {
     console.info(uInfo)
     window.localStorage.setItem('token', uInfo.token)
-    window.localStorage.setItem('userInfo', uInfo.userInfo)
+    window.localStorage.setItem('userInfo', JSON.stringify(uInfo.userInfo))
     window.localStorage.setItem('rlId', uInfo.rlId)
   },
   getDictInfo: function () {
@@ -43,11 +43,11 @@ export default {
   },
   getUserInfo: function () {
     var userInfo = window.localStorage.getItem('userInfo')
-    if (userInfo === '') {
+    if (userInfo === '' || userInfo === 'undefined') {
       return null
     }
-    return userInfo
-    // return JSON.parse(userInfo)
+    // return userInfo
+    return JSON.parse(userInfo)
   },
   getToken: function () {
     var token = window.localStorage.getItem('token')
