@@ -109,9 +109,10 @@
       }
       this.statusMap = dataMap
       // let uId = 'U00022'
-      let uId = this.commonJs.getUserId()
-      this.unreadReq.rlId = uId
-      this.alreadyreadReq.rlId = uId
+      let uId = this.commonJs.getUuid()
+      let rlId = this.commonJs.getRlId()
+      this.unreadReq.rlId = rlId
+      this.alreadyreadReq.rlId = rlId
       this.setReq.uuid = uId
       this.queryUnRead()
       this.queryAlready()
