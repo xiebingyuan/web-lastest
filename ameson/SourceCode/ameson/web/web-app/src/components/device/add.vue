@@ -9,7 +9,7 @@
       <datetime title="出厂时间" v-model="info.devOutTime" format="YYYY-MM-DD HH:mm"></datetime>
     <!--   <x-input title="管理员密码" disabled value="******" ></x-input>
       <x-input title="SOS密码" disabled  value="******"></x-input> -->
-      <x-textarea :max="300" title="密码组" v-model="info.passGroup" placeholder="请输入密码组" :show-counter="false"></x-textarea>
+      <x-textarea :max="300" title="密码组" v-model="info.passGroup" placeholder="请输入三组密码组,格式如下:111111,222222,333333" :show-counter="false"></x-textarea>
     </group>
     <group>
       <cell title="默认规格参数">
@@ -227,6 +227,16 @@
           return
         }
         if (this.checkSubmitField(this.info.passGroup, '请输入密码组!')) {
+          return
+        }
+        let pg = this.info.passGroup.split(',')
+        if (pg.length < 3) {
+          this.$vux.toast.show({
+            text: '密码组格式不正确,请至少输入三组密码组',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
           return
         }
         if (this.info.devOutTime.length === 16) {
