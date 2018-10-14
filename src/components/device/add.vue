@@ -143,9 +143,9 @@
         checkFlag: false,
         info: {
           // devCode: 'A0000004',
-          devSeries: '',
-          devType: '',
-          devStatus: '',
+          devSeries: 1,
+          devType: 3,
+          devStatus: 2,
           devOutTime: '',
           devBluetCode: '',
           passGroup: '' // 逗号隔开
@@ -224,6 +224,9 @@
           return
         }
         if (this.checkSubmitField(this.info.devOutTime, '请选择出厂时间!')) {
+          return
+        }
+        if (this.checkSubmitField(this.info.passGroup, '请输入密码组!')) {
           return
         }
         if (this.info.devOutTime.length === 16) {

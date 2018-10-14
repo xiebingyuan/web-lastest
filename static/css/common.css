@@ -38,7 +38,7 @@
     outline: none;
     display: none;
   }
-  .checkBoxClass+span {
+.checkBoxClass+span {
     width: 16px;
     height: 16px;
     background-color: red;
@@ -48,7 +48,10 @@
     background-position-y: -25px;
     position: relative;
     top: 3px;
-  }
-  .checkBoxClass:checked+span {
+}
+.checkBoxClass:checked+span {
     background-position: 0 0px
-  }
+}
+.vux-header {
+  background-color: #00529b !important;
+}
