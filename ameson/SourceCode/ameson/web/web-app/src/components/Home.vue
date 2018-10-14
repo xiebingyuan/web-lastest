@@ -135,7 +135,7 @@
     mounted () {
       // this.queryDict()
       this.commonJs.getDictInfo()
-      window.addEventListener('message', this.receiveMsg, false)
+      // window.addEventListener('message', this.receiveMsg, false)
     },
     methods: {
       receiveMsg (e) {

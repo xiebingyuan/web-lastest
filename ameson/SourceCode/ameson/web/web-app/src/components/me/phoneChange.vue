@@ -36,7 +36,8 @@
         info: {
           uPhone: '',
           newPhone: '',
-          smsCode: ''
+          smsCode: '',
+          uId: ''
         },
         isSend: true,
         count: '',
@@ -44,6 +45,7 @@
       }
     },
     mounted () {
+      this.info.uId = this.commonJs.getUserId()
     },
     methods: {
       async sendCode () {
