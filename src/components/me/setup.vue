@@ -32,6 +32,7 @@
     },
     mounted () {
       this.reqInfo.uId = this.commonJs.getUserId()
+      this.info.uId = this.commonJs.getUserId()
       this.queryStatus()
     },
     methods: {
@@ -40,9 +41,9 @@
         if (res.code === 0) {
           if (res.data.length > 0) {
             let result = res.data[0]
-            console.info(result.smsRemindStatus)
-            this.stringValue = result.smsRemindStatus
-            this.info.uId = result.uId
+            this.stringValue = '' + result.smsRemindStatus
+          } else {
+            this.stringValue = '0'
           }
         } else {
           this.$vux.toast.show({
