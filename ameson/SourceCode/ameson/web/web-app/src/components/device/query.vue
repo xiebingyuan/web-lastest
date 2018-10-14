@@ -153,13 +153,6 @@
     },
     methods: {
       async query (pageSize, pageNo) {
-        // let formData = {}
-        // if (this.devCode !== '') {
-        //   formData.devCode = this.devCode
-        // }
-        // if (this.custCode !== '') {
-        //   formData.custCode = this.custCode
-        // }
         let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', this.reqInfo, pageSize, pageNo)
         if (res.code === 0 && res.data.length !== 0) {
           this.code = res.code

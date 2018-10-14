@@ -17,25 +17,45 @@ export default {
       }
     })
   },
+  setInitInfo: function (uInfo) {
+    console.info(uInfo)
+    window.localStorage.setItem('token', uInfo.token)
+    window.localStorage.setItem('userInfo', uInfo.userInfo)
+    window.localStorage.setItem('rlId', uInfo.rlId)
+  },
   getDictInfo: function () {
     var oldData = window.localStorage.getItem('dictInfo')
-    if (!oldData || oldData == null) {
+    if (!oldData || oldData == null || oldData === 'undefined') {
       this.initDict()
     }
     var data = window.localStorage.getItem('dictInfo')
+    if (data === '' || data === null || data === 'undefined') {
+      return null
+    }
     return JSON.parse(data)
   },
   getUserId: function () { // set userId to localStorage when user login
-    var userId = window.localStorage.getItem('userId')
-    return userId
+    var userInfo = this.getUserInfo()
+    if (userInfo != null) {
+      return userInfo.uId
+    }
+    return ''
   },
   getUserInfo: function () {
     var userInfo = window.localStorage.getItem('userInfo')
-    return JSON.parse(userInfo)
+    if (userInfo === '') {
+      return null
+    }
+    return userInfo
+    // return JSON.parse(userInfo)
   },
   getToken: function () {
-    // var token = window.localStorage.getItem('token')
-    var token = '222222'
-    return token
+    var token = window.localStorage.getItem('token')
+    // var token = '222222'
+    return token.toString()
+  },
+  getRlId: function () {
+    var rlId = window.localStorage.getItem('rlId')
+    return rlId.toString()
   }
 }
