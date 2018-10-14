@@ -28,7 +28,7 @@
       return {
         name: '软件版本',
         currentVersion: '1.0',
-        lastVersion: '1.1',
+        lastVersion: '1.0',
         isUpdate: false
       }
     },

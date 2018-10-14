@@ -2,7 +2,7 @@
 	<div>
 		<x-header>{{name}}</x-header>
     <group title="建议内容">
-      <x-textarea :max="800" :show-counter="false" name="description" placeholder="请输入建议内容..." v-model="advice"></x-textarea>
+      <x-textarea :max="800" :show-counter="false" name="description" placeholder="请输入建议内容..." v-model="reqInfo.advContent"></x-textarea>
     </group>
     <tabbar style="position:fixed">
       <tabbar-item><span slot="label"></span></tabbar-item>
@@ -29,11 +29,14 @@
         name: '建议反馈',
         reqInfo: {
           uId: '',
-          advType: '',
-          advSubject: '',
+          advType: '建议反馈',
+          advSubject: '对系统的建议反馈',
           advContent: ''
         }
       }
+    },
+    mounted () {
+      this.reqInfo.uId = this.commonJs.getUserId()
     },
     methods: {
       async sumbit () {
