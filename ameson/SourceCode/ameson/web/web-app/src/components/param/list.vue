@@ -346,7 +346,8 @@
       clickMenu (key, item) {
         console.info(key)
         if (key === '1') {
-          window.location.href = 'http://120.25.251.207:8612/ameson/parameter?deviceId=' + this.deviceId
+          window.location.href = 'http://www.zjytech.cn:8612/ameson/parameter?deviceId=' + this.deviceId
+          
         } else {
           this.setup()
         }
