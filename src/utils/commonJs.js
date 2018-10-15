@@ -69,5 +69,5 @@ export default {
       return userInfo.uuid
     }
     return ''
-  },
+  }
 }
