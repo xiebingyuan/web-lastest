@@ -70,7 +70,7 @@
         let res = await this.$http.postDeviceQuery('/devFaultCodeConfig/getDevFaultCodeConfigList', {faultCode: this.info.faultCode}, 1, 1)
         this.code = res.code
         if (res.code === 0) {
-          if (res.data !== '') {
+          if (res.data.length !== 0) {
             this.info = res.data[0]
             // 查询故障处理方案
             let respone = await this.$http.postDeviceQuery('/devFaultDealwithSecheme/getDevFaultDealwithSechemeList', {faultCode: this.info.faultCode}, 10, 1)
