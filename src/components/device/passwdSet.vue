@@ -110,7 +110,7 @@
         noFindMsg: '无符合条件数据！',
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         loadShow: false,
         isPwd: false,
         showConfirm: false,
@@ -148,13 +148,13 @@
         } else {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       resetData () {
         this.devCode = ''
         this.custCode = ''
         this.code = 0
-        this.pageSize = 5
+        this.pageSize = 10
         this.devices = {}
         this.isPwd = false
       },
@@ -215,7 +215,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

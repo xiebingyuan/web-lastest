@@ -136,7 +136,7 @@
         if (this.custCode !== '') {
           formData.custCode = this.custCode
         }
-        let response = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', formData, 5, 1)
+        let response = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', formData, 10, 1)
         this.code = response.code
         this.devices = response.data
         if (response.code === 0 && response.data.length === 0) {

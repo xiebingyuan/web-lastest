@@ -95,7 +95,7 @@
       }
       this.typeMap = typeData
       this.seriesMap = seriesdata
-      this.query(5, 1)
+      this.query(10, 1)
     },
     watch: {
     },
@@ -124,7 +124,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

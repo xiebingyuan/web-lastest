@@ -124,7 +124,7 @@
         devCode: '',
         custCode: '',
         code: 0,
-        pageSize: 5,
+        pageSize: 10,
         pageNo: 1,
         loadShow: false,
         isLocation: false,
@@ -187,7 +187,7 @@
         if (response.code === 0 && response.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       resetData () {
         this.devCode = ''
@@ -197,7 +197,7 @@
         this.code = 0
         this.isLocation = false
         this.mapShow = false
-        this.pageSize = 5
+        this.pageSize = 10
       },
       async goLocation (devCode) {
         this.locationCode = devCode
@@ -254,7 +254,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

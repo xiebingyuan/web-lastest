@@ -62,7 +62,7 @@
             <div v-if="selected !== ''">
               <tabbar style="position:fixed">
                   <tabbar-item @click.native="toAdd"><span slot="label" class="showClass">添加</span></tabbar-item>
-                  <tabbar-item @click.native="toUpdate"><span slot="label" class="showClass">修改</span></tabbar-item>
+      <!--             <tabbar-item @click.native="toUpdate"><span slot="label" class="showClass">修改</span></tabbar-item> -->
                   <tabbar-item @click.native="toDel"><span slot="label" class="showClass">删除</span></tabbar-item>
               </tabbar>
             </div>
@@ -300,7 +300,7 @@
         selectInfo: {},
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         selected: '',
         actionType: '',
         loadShow: false,
@@ -355,7 +355,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       closeListPopup () {
         this.showListPopup = false
@@ -532,7 +532,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             this.queryDevice(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
@@ -546,7 +546,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
