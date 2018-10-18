@@ -85,7 +85,7 @@
         name: '我的工单',
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         isPick: false,
         loadShow: false,
         selected: '',
@@ -158,7 +158,7 @@
         if (this.infos.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       choose (index) {
         this.selected = index
@@ -205,7 +205,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

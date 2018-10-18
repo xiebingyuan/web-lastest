@@ -147,7 +147,7 @@
         custCode: '',
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         onFetching: false,
         devices: [],
         windModeList: [],
@@ -272,14 +272,14 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       resetData () {
         this.devCode = ''
         this.custCode = ''
         this.selectCode = ''
         this.code = 0
-        this.pageSize = 5
+        this.pageSize = 10
         this.devices = {}
       },
       toSelect (info) {
@@ -361,7 +361,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

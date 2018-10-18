@@ -96,7 +96,7 @@
         isQuerySuccess: false,
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         isPick: false,
         loadShow: false,
         onFetching: false,
@@ -153,13 +153,13 @@
         if (this.infos.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       resetData () {
         this.isInit = false
         this.code = 0
         this.infos = {}
-        this.pageSize = 5
+        this.pageSize = 10
         this.faultCode = ''
         this.selected = ''
         this.isPick = ''
@@ -218,7 +218,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

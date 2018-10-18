@@ -74,7 +74,7 @@
         infos: [{custCode: 'A0001', custName: 'aliba'}],
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         loadShow: false,
         onFetching: false
       }
@@ -88,7 +88,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       async syncData () {
         console.info('sync data............')
@@ -103,7 +103,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false

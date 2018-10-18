@@ -43,7 +43,7 @@
         custCode: '',
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         typeMap: {},
         seriesMap: {},
         formData: {

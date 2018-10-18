@@ -90,7 +90,7 @@
         custCode: '',
         code: 0,
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         isRepair: false,
         checkBox: false,
         onFetching: false,
@@ -164,14 +164,14 @@
         } else {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = 10
       },
       resetData () {
         this.reqInfo.devCode = ''
         this.reqInfo.custCode = ''
         this.code = 0
         this.devices = {}
-        this.pageSize = 5
+        this.pageSize = 10
       },
       toAdd () {
         this.$router.push({path: '/device/add'})
@@ -193,7 +193,9 @@
       async toDel () {
         console.info(this.devList.length)
         for (var i = this.devList.length - 1; i >= 0; i--) {
+          console.log(this.devList[i])
           let uuid = this.devList[i].uuid
+          console.log('uuid=' + uuid)
           let res = await this.$http.postDeviceCommon('/devBaseInfo/upDevBaseInfo', { uuid: uuid, status: -1 })
           if (res.code === 0) {
             this.$vux.toast.show({
@@ -204,7 +206,7 @@
             })
           }
         }
-        this.query()
+        this.query(10, 1)
       },
       toModule () {
         if (this.devList.length > 1) {
@@ -237,7 +239,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + 10
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
