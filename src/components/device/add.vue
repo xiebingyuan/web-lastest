@@ -93,7 +93,7 @@
                title="添加确认"
                @on-cancel="onCancel"
                @on-confirm="onConfirm">
-        <p style="text-align:center;">操作成功，是否继续添加?</p>
+        <p style="text-align:center;">操作成功，设备号为{{addDeviceCode}},是否继续添加?</p>
       </confirm>
     </div>
   </div>
@@ -141,6 +141,7 @@
         startStopList: [],
         checkList: [],
         checkFlag: false,
+        addDeviceCode: '',
         info: {
           // devCode: 'A0000004',
           devSeries: 1,
@@ -207,9 +208,6 @@
           this.devStatusList.push(newInfo)
         }
       }
-      let current = new Date()
-      console.info('date = ' + current)
-      console.info('deviceUrl = ' + this.GLOBAL.deviceurl)
     },
     methods: {
       async sumbit () {
@@ -244,6 +242,11 @@
         }
         let response = await this.$http.postDeviceCommon('/devBaseInfo/addDevBaseInfo', this.info)
         if (response.code === 0) {
+          if (response.data.length !== 0) {
+            console.log(response.data)
+            // let respData = JSON.parse(response.data)
+            this.addDeviceCode = response.data[0].devCode
+          }
           this.showConfirm = true
         } else {
           this.$vux.toast.show({
@@ -280,6 +283,7 @@
         this.info.devType = ''
         this.info.devStatus = ''
         this.info.devOutTime = ''
+        this.info.passGroup = ''
       },
       onCancel () {
         this.$router.push({path: '/device/query', query: { devCode: this.info.devCode }})
