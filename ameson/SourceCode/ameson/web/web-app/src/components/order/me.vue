@@ -104,9 +104,9 @@
         showConfirm: false,
         infos: {},
         reqInfo: {
-          serOrderStatus: '',
-          serOrderType: '',
-          serOrderClassify: ''
+          // serOrderStatus: '',
+          // serOrderType: '',
+          // serOrderClassify: ''
         },
         detail: {
           serOrderType: 0,
