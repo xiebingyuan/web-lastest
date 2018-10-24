@@ -175,8 +175,31 @@
         this.isPick = true
         this.detail = this.infos[index]
       },
-      referOrder () {
-        console.info(this.detail.uuid)
+      async referOrder () {
+        let req = {}
+        req.msgType = 7
+        req.msgDesc = '您有一条工单,请及时处理!'
+        req.uId = this.commonJs.getUuid()
+        req.rlId = this.commonJs.getRlId()
+        let response = await this.$http.postDeviceCommon('/msgSysMessage/addMsgSysMessage', this.reqInfo)
+        if (response.code === 0) {
+          this.$vux.toast.show({
+            text: '催单成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
+          this.selected = ''
+          this.isPick = false
+          this.detail = ''
+        } else {
+          this.$vux.toast.show({
+            text: '催单失败,请重新提交!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
       },
       toCancle () {
         console.info(1)
