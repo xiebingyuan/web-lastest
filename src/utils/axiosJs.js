@@ -31,6 +31,7 @@ console.info(commonJs.getUserInfo())
 axios.defaults.headers.post['token'] = commonJs.getToken()
 axios.defaults.headers.post['uId'] = commonJs.getUserId()
 axios.defaults.headers.post['rlId'] = commonJs.getRlId()
+console.log('rlId = ' + commonJs.getRlId())
 
 function checkStatus (response) {
   // loading
