@@ -91,6 +91,8 @@
     <div v-transfer-dom>
       <confirm v-model="showConfirm"
                title="添加确认"
+               confirm-text="继续添加"
+               cancel-text="返回列表"
                @on-cancel="onCancel"
                @on-confirm="onConfirm">
         <p style="text-align:center;">操作成功，设备号为{{addDeviceCode}},是否继续添加?</p>
@@ -243,8 +245,6 @@
         let response = await this.$http.postDeviceCommon('/devBaseInfo/addDevBaseInfo', this.info)
         if (response.code === 0) {
           if (response.data.length !== 0) {
-            console.log(response.data)
-            // let respData = JSON.parse(response.data)
             this.addDeviceCode = response.data[0].devCode
           }
           this.showConfirm = true
