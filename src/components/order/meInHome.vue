@@ -4,7 +4,7 @@
     </x-header>
     <group></group>
     <div>
-      <scroller lock-x height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>

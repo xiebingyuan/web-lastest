@@ -279,9 +279,9 @@
       },
       onConfirm () {
         this.info.devCode = ''
-        this.info.devSeries = ''
-        this.info.devType = ''
-        this.info.devStatus = ''
+        this.info.devSeries = 1
+        this.info.devType = 3
+        this.info.devStatus = 2
         this.info.devOutTime = ''
         this.info.passGroup = ''
       },

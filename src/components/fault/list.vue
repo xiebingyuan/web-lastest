@@ -8,7 +8,7 @@
       <x-input title="故障码" v-model="faultCode"  placeholder="请输入故障码..."></x-input>
     </group>
     <div>
-      <scroller lock-x height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
