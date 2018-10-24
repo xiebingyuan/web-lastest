@@ -343,6 +343,7 @@
         console.log('on-change', val)
         let reqInfo = {}
         reqInfo.uName = val
+        reqInfo.uType = 0
         let response = await this.$http.postUserQuery('user/qryUserBasicInfoList', reqInfo, 5, 1)
         if (response.code === 0) {
           this.users = response.data
