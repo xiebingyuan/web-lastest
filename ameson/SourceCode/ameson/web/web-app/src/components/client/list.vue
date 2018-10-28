@@ -71,7 +71,8 @@
         reqInfo: {
           custName: ''
         },
-        infos: [{custCode: 'A0001', custName: 'aliba'}],
+        infos: [],
+        // infos: [{custCode: 'A0001', custName: 'aliba'}],
         code: 0,
         pageNo: 1,
         pageSize: 10,

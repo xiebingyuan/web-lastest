@@ -69,7 +69,7 @@
             <div v-else>
               <tabbar style="position:fixed">
                 <tabbar-item @click.native="toAdd"><span slot="label" class="showClass">添加</span></tabbar-item>
-                <tabbar-item><span slot="label">修改</span></tabbar-item>
+                <!-- <tabbar-item><span slot="label">修改</span></tabbar-item> -->
                 <tabbar-item><span slot="label">删除</span></tabbar-item>
               </tabbar>
             </div>
@@ -296,7 +296,8 @@
           devType: '',
           devSeries: ''
         },
-        infos: [{custCode: 'C001', custName: 'aliba'}], // 客户销售列表
+        infos: [], // 客户销售列表
+        // infos: [{custCode: 'C001', custName: 'aliba'}], // 客户销售列表
         selectInfo: {},
         code: 0,
         pageNo: 1,
