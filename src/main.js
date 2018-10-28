@@ -15,6 +15,8 @@ Vue.use(LoadingPlugin)
 Vue.use(ToastPlugin)
 Vue.use(AlertPlugin)
 
+// Vue.component('vue-upload-component', VueUploadComponent)
+
 Vue.use(VueRouter)
 Vue.use(commonJs)
 

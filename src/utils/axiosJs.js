@@ -31,6 +31,7 @@ console.info(commonJs.getUserInfo())
 axios.defaults.headers.post['token'] = commonJs.getToken()
 axios.defaults.headers.post['uId'] = commonJs.getUserId()
 axios.defaults.headers.post['rlId'] = commonJs.getRlId()
+// axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
 console.log('rlId = ' + commonJs.getRlId())
 
 function checkStatus (response) {
@@ -141,6 +142,27 @@ export default {
       // baseURL: 'http://47.100.239.45:8622/',
       url,
       data: {reqInfo: data},
+      timeout: 10000,
+      headers: {
+        'X-Requested-With': 'Content-Type',
+        'Content-Type': 'application/json; charset=UTF-8'
+      }
+    }).then(
+      (response) => {
+        return checkStatus(response)
+      }
+    ).then(
+      (res) => {
+        return checkCode(res)
+      }
+    )
+  },
+  postFile (url, data) {
+    return axios({
+      method: 'post',
+      baseURL: 'http://www.zjytech.cn:8612/toFile',
+      url,
+      data: data,
       timeout: 10000,
       headers: {
         'X-Requested-With': 'Content-Type',

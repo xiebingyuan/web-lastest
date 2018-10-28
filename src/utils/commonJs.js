@@ -69,5 +69,12 @@ export default {
       return userInfo.uuid
     }
     return ''
+  },
+  getBelongArea: function () {
+    var userInfo = this.getUserInfo()
+    if (userInfo != null) {
+      return userInfo.eBelongArea
+    }
+    return ''
   }
 }

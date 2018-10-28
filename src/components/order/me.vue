@@ -104,9 +104,9 @@
         showConfirm: false,
         infos: {},
         reqInfo: {
-          // serOrderStatus: '',
-          // serOrderType: '',
-          // serOrderClassify: ''
+          serOrderStatus: '',
+          serOrderType: '',
+          serOrderClassify: ''
         },
         detail: {
           serOrderType: 0,
@@ -181,7 +181,7 @@
         req.msgDesc = '您有一条工单,请及时处理!'
         req.uId = this.commonJs.getUuid()
         req.rlId = this.commonJs.getRlId()
-        let response = await this.$http.postDeviceCommon('/msgSysMessage/addMsgSysMessage', this.reqInfo)
+        let response = await this.$http.postDeviceCommon('/msgSysMessage/addMsgSysMessage', req)
         if (response.code === 0) {
           this.$vux.toast.show({
             text: '催单成功!',

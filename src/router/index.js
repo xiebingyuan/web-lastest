@@ -43,6 +43,7 @@ import ClientManage from '@/components/client/manage'
 import DeviceMy from '@/components/device/my'
 import DeviceRunning from '@/components/device/running'
 import DeviceRepairOrder from '@/components/device/repairOrder'
+import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/HelloWorld',
+    name: 'HelloWorld',
+    component: HelloWorld
   },
   {
     path: '/workbench',
