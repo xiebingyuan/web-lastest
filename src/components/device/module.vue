@@ -71,7 +71,7 @@
           this.$router.push({path: '/device/query', query: {}})
         } else {
           this.$vux.toast.show({
-            text: 'Imis号已注册!',
+            text: '此号已注册!',
             position: 'middle',
             type: 'warn',
             time: 1500

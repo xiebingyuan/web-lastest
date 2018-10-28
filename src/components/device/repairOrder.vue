@@ -49,8 +49,8 @@
         formData: {
           devCode: '',
           custCode: '10000',
-          serOrderClassify: 111,  // 工单分类-设备固障
-          serOrderType: 106, // 问题类型-售后
+          serOrderClassify: 1,  // 工单分类-设备固障
+          serOrderType: 1, // 问题类型-售后
           faultCode: '',
           serOrderDesc: '',
           serOrderRemark: ''

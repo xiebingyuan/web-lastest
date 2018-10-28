@@ -86,7 +86,7 @@
       </popup>
     </div>
     <tabbar v-if="isDiagnose" style="position:fixed">
-      <tabbar-item @click.native="updated"><span slot="label" class="showClass">固体升级</span></tabbar-item>
+<!--       <tabbar-item @click.native="updated"><span slot="label" class="showClass">固体升级</span></tabbar-item> -->
       <tabbar-item @click.native="setup"><span slot="label" class="showClass">参数设置</span></tabbar-item>
       <tabbar-item @click.native="location"><span slot="label" class="showClass">设备定位</span></tabbar-item>
       <tabbar-item @click.native="goDetail" ><span slot="label" class="showClass">设备详情</span></tabbar-item>
