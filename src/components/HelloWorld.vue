@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
    
-    <cell title="上传文件"><input type="file" /></cell>
+    <cell title="上传文件"><input type="file" ref="file"/></cell>
+    <x-button type="warn" @click.native="resetData">浆糊</x-button>
 <!--     <vue-file-upload>
     <span slot="label" v-on:onAdd = "onAddItem">上传文件</span>
     </vue-file-upload> -->
@@ -50,26 +51,31 @@
   // isCancel: false, // 取消上传
   // isError: false, // 上传失败
   // progress: 0 // 上传进度
-import { Cell } from 'vux'
+import { Cell, XButton } from 'vux'
 export default {
   name: 'HelloWorld',
   components: {
-    Cell
+    Cell,
+    XButton
     // VueFileUpload: VueFileUpload
   },
   data () {
     return {
       files: [],
+      file: '',
       msg: 'Welcome to Your Vue.js App'
     }
   },
   method: {
-    uploadItem (file) {
-      file.upload()
-    },
-    onAddItem (files) {
-      console.log(files)
-      this.files = files
+    resetData () {
+      console.log(111)
+      // console.log(this.$refs.file.files)
+      // let resp = await this.$http.postFile('/toFile', this.$refs.file.files)
+      // if (resp.code === 0) {
+      //   console.log('success')
+      // } else {
+      //   console.log('error')
+      // }
     }
     // inputFile: function (newFile, oldFile) {
     //   if (newFile && oldFile && !newFile.active && oldFile.active) {

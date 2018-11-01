@@ -5,6 +5,8 @@
       <a slot="right" @click="resetData" style="margin-left: 20px">重置</a>
     </x-header>
     <group>
+      <cell title="上传文件"><input type="file" ref="file"/></cell>
+      <x-button type="warn" @click.native="sFile">浆糊</x-button>
       <x-input title="设备编号" v-model="devCode"  placeholder="请输入设备编号...">{{devCode}}</x-input>
       <x-input title="客户编号" v-model="custCode" placeholder="请输入客户编号...">{{custCode}}</x-input>
     </group>
@@ -211,6 +213,16 @@
       }
     },
     methods: {
+      async sFile () {
+        console.log(111)
+        console.log(this.$refs.file.files)
+        let resp = await this.$http.postFile('/toFile', this.$refs.file.files)
+        if (resp.code === 0) {
+          console.log('success')
+        } else {
+          console.log('error')
+        }
+      },
       queryDict () {
         var dictAll = this.commonJs.getDictInfo()
         for (var i = 0; i < dictAll.length; i++) {

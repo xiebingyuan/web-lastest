@@ -124,7 +124,11 @@
           this.unreadInfos = req.data
           for (var i = this.unreadInfos.length - 1; i >= 0; i--) {
             this.unreadInfos[i].msgTypeName = this.statusMap.get(parseInt(this.unreadInfos[i].msgType))
-            this.unreadInfos[i].contentAbbr = this.unreadInfos[i].msgDesc.substring(0, 10) + '......'
+            if (this.unreadInfos[i].msgDesc.length > 10) {
+              this.unreadInfos[i].contentAbbr = this.unreadInfos[i].msgDesc.substring(0, 10) + '......'
+            } else {
+              this.unreadInfos[i].contentAbbr = this.unreadInfos[i].msgDesc.substring(0, 10)
+            }
             this.unreadInfos[i].creatTimeAbbr = this.unreadInfos[i].creatTime.substring(0, 10)
           }
         }
@@ -135,7 +139,11 @@
           this.alreadyreadInfos = req.data
           for (var i = this.alreadyreadInfos.length - 1; i >= 0; i--) {
             this.alreadyreadInfos[i].msgTypeName = this.statusMap.get(parseInt(this.alreadyreadInfos[i].msgType))
-            this.alreadyreadInfos[i].contentAbbr = this.alreadyreadInfos[i].msgDesc.substring(0, 10) + '......'
+            if (this.alreadyreadInfos[i].msgDesc.length > 100) {
+              this.alreadyreadInfos[i].contentAbbr = this.alreadyreadInfos[i].msgDesc.substring(0, 100) + '......'
+            } else {
+              this.alreadyreadInfos[i].contentAbbr = this.alreadyreadInfos[i].msgDesc
+            }
             this.alreadyreadInfos[i].creatTimeAbbr = this.alreadyreadInfos[i].creatTime.substring(0, 10)
           }
         }

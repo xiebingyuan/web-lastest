@@ -160,13 +160,13 @@ export default {
   postFile (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://www.zjytech.cn:8612/toFile',
+      baseURL: 'http://www.zjytech.cn:8612',
       url,
       data: data,
       timeout: 10000,
       headers: {
         'X-Requested-With': 'Content-Type',
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'multipart/form-data; charset=UTF-8'
       }
     }).then(
       (response) => {
