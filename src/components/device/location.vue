@@ -60,7 +60,7 @@
     <tabbar v-if="isLocation" style="position:fixed">
 <!--       <tabbar-item @click.native="updated"><span slot="label" class="showClass">固体升级</span></tabbar-item> -->
       <tabbar-item @click.native="setup"><span slot="label" class="showClass">参数设置</span></tabbar-item>
-      <tabbar-item><span slot="label" class="showClass">申请报修</span></tabbar-item>
+      <tabbar-item @click.native="toRepair"><span slot="label" class="showClass">申请报修</span></tabbar-item>
     </tabbar>
     <div v-transfer-dom>
       <popup v-model="showPopup" height="100%">
@@ -243,6 +243,9 @@
       },
       setup () {
         this.$router.push({path: '/param/list', query: { devCode: this.locationCode }})
+      },
+      toRepair () {
+        this.$router.push({path: '/device/repairOrder', query: { devCode: this.locationCode }})
       },
       goDetail () {
         this.$router.push({path: '/device/detail', query: { devCode: this.locationCode }})

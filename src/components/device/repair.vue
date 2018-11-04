@@ -46,6 +46,7 @@
         <x-input title="故障码" v-model="formData.faultCode"></x-input>
         <x-textarea :max="200" title="问题描述" v-model="formData.serOrderDesc" placeholder="请输入问题描述" :show-counter="true"></x-textarea>
         <x-textarea :max="200" title="问题备注" v-model="formData.serOrderRemark" placeholder="您还有什么需要说明的" :show-counter="true"></x-textarea>
+        <cell title="上传图片"><input type="file" ref="file" @change="uploadFile"/></cell>
       </group>
     </div>
     <tabbar v-if="isRepair" style="position:fixed">
@@ -94,7 +95,8 @@
           serOrderType: 1, // 问题类型-售后
           faultCode: '',
           serOrderDesc: '',
-          serOrderRemark: ''
+          serOrderRemark: '',
+          serOrderPath: ''
         }
       }
     },
@@ -159,6 +161,14 @@
       },
       goDetail (devCode) {
         this.$router.push({path: '/device/detail', query: { devCode: devCode }})
+      },
+      async uploadFile (e) {
+        let file = e.target.files[0]
+        let param = new FormData()
+        param.append('file', file, file.name)
+        let resp = await this.$http.postFile('/upload', param)
+        console.log(resp)
+        this.formData.serOrderPath = resp
       },
       onScrollBottom () {
         if (this.onFetching) {

@@ -281,7 +281,7 @@
         this.isInit = true
         this.infos = response.data
         for (var i = this.infos.length - 1; i >= 0; i--) {
-          this.infos[i].statusName = this.statusMap.get(parseInt(this.infos[i].serOrderStatus))
+          this.infos[i].statusName = this.statusMap.get(parseInt(this.infos[i].serOrderExamStatus))
         }
         if (this.infos.length === 0) {
           this.code = -1

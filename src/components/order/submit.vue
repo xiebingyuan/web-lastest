@@ -10,6 +10,7 @@
     	<x-input title="客户编号" v-model="info.custCode"  placeholder="请输入客户编号..."></x-input>
     	<x-textarea :max="200" title="问题描述" placeholder="请输入问题描述..." v-model="info.serOrderDesc" :show-counter="false"></x-textarea>
     	<x-textarea :max="200" title="问题备注" placeholder="请输入问题备注..." v-model="info.serOrderRemark" :show-counter="false"></x-textarea>
+      <cell title="上传图片"><input type="file" ref="file" @change="uploadFile"/></cell>
 <!--     	<group>
         <x-textarea :max="200" title="问题描述" placeholder="请输入问题描述..." v-model="info.serOrderDesc" :show-counter="false"></x-textarea>
       </group> -->
@@ -60,7 +61,8 @@
           devCode: '',
           custCode: '',
           serOrderDesc: '',
-          serOrderRemark: ''
+          serOrderRemark: '',
+          serOrderPath: ''
         }
       }
     },
@@ -112,6 +114,14 @@
           })
           this.$router.push({path: '/order/me', query: {}})
         }
+      },
+      async uploadFile (e) {
+        let file = e.target.files[0]
+        let param = new FormData()
+        param.append('file', file, file.name)
+        let resp = await this.$http.postFile('/upload', param)
+        console.log(resp)
+        this.info.serOrderPath = resp
       },
       checkSubmitField (field, msg) {
         if (field === '') {

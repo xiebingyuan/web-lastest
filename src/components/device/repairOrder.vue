@@ -9,6 +9,7 @@
       <group>
         <x-textarea :max="200" title="问题备注" placeholder="请输入问题备注..." v-model="formData.serOrderRemark" :show-counter="false"></x-textarea>
       </group>
+      <cell title="上传图片"><input type="file" ref="file" @change="uploadFile"/></cell>
     </group>
     <tabbar style="position:fixed">
       <tabbar-item><span slot="label"></span></tabbar-item>
@@ -53,7 +54,8 @@
           serOrderType: 1, // 问题类型-售后
           faultCode: '',
           serOrderDesc: '',
-          serOrderRemark: ''
+          serOrderRemark: '',
+          serOrderPath: ''
         }
       }
     },
@@ -88,6 +90,14 @@
             time: 1500
           })
         }
+      },
+      async uploadFile (e) {
+        let file = e.target.files[0]
+        let param = new FormData()
+        param.append('file', file, file.name)
+        let resp = await this.$http.postFile('/upload', param)
+        console.log(resp)
+        this.formData.serOrderPath = resp
       }
     }
   }

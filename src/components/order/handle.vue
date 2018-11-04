@@ -40,17 +40,20 @@
         <cell title="设备编号" v-model="detail.devCode"></cell>
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
+        <selector ref="defaultValueRef" title="状态" readonly class="floatLeft" direction="rtl"  :options="orderStatusList" v-model="info.orderStatus"></selector>
+        <x-textarea :max="200" title="处理反馈" placeholder="请输入处理反馈..." v-model="info.handlDesc" :show-counter="false"></x-textarea>
+        <cell title="上传图片"><input type="file" ref="file" @change="uploadFile"/></cell> 
         <!-- <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea> -->
-        <cell title="审核状态" v-model="detail.serOrderExamStatusName"></cell>
-        <cell title="工单状态" v-model="detail.serOrderStatusName"></cell>
-        <cell title="处理人" v-model="detail.devCode"></cell>
+        <!-- <cell title="审核状态" v-model="detail.serOrderExamStatusName"></cell> -->
+        <!-- <cell title="工单状态" v-model="detail.serOrderStatusName"></cell> -->
+<!--         <cell title="处理人" v-model="detail.devCode"></cell>
         <cell title="处理时间" v-model="detail.devCode"></cell>
-        <cell title="审批情况" v-model="detail.devCode"></cell>
+        <cell title="审批情况" v-model="detail.devCode"></cell> -->
       </group>
     </div>  
     <tabbar style="position:fixed" v-show="selected!=='' && detail.serOrderExamStatus === 0">
       <tabbar-item ><span slot="label" class="submit-btn"></span></tabbar-item>
-      <tabbar-item @click.native="showVerify" class="bg-color-orange"><span slot="label" class="submit-btn">审  核</span></tabbar-item>
+      <tabbar-item @click.native="handleData" class="bg-color-orange"><span slot="label" class="submit-btn">处  理</span></tabbar-item>
     </tabbar>
     <div v-transfer-dom>
       <confirm v-model="showConfirm"
@@ -109,6 +112,7 @@
         questionClassList: [],
         questionTypeList: [],
         statusList: [],
+        orderStatusList: [],
         showConfirm: false,
         objectListValue: [],
         infos: {},
@@ -135,7 +139,8 @@
           custCode: '',
           serOrderExamStatus: 0,
           handlDesc: '',
-          nextHandlUser: ''
+          handlPath: '',
+          orderStatus: 3
         }
       }
     },
@@ -173,7 +178,8 @@
         if (dict.dictParentId === 100) {
           let key = dict.dictTypeValue
           let name = dict.dictTypeCname
-          // let newInfo = {key: key, value: name}
+          let newInfo = {key: key, value: name}
+          this.orderStatusList.push(newInfo)
           orderData.set(key, name)
         }
       }
@@ -194,7 +200,7 @@
         this.isInit = true
         this.infos = response.data
         for (var i = this.infos.length - 1; i >= 0; i--) {
-          this.infos[i].statusName = this.statusMap.get(parseInt(this.infos[i].serOrderStatus))
+          this.infos[i].statusName = this.statusMap.get(parseInt(this.infos[i].serOrderExamStatus))
         }
         if (this.infos.length === 0) {
           this.code = -1
@@ -238,6 +244,36 @@
             time: 1500
           })
           this.infos.splice(this.selected, 1)
+          this.selected = ''
+          this.isPick = false
+        } else {
+          this.$vux.toast.show({
+            text: '删除失败!',
+            position: 'middle',
+            type: 'warn',
+            time: 1500
+          })
+        }
+      },
+      async uploadFile (e) {
+        let file = e.target.files[0]
+        let param = new FormData()
+        param.append('file', file, file.name)
+        let resp = await this.$http.postFile('/upload', param)
+        console.log(resp)
+        this.info.handlPath = resp
+      },
+      async handleData () {
+        this.info.serOrderNum = this.detail.serOrderNum
+        this.info.custCode = this.detail.custCode
+        let res = await this.$http.postDeviceCommon('/serviceOrder/handleServiceOrder', this.info)
+        if (res.code === 0) {
+          this.$vux.toast.show({
+            text: '删除成功!',
+            position: 'middle',
+            type: 'success',
+            time: 1500
+          })
           this.selected = ''
           this.isPick = false
         } else {
