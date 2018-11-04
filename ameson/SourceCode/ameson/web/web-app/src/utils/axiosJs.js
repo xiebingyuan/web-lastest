@@ -160,13 +160,14 @@ export default {
   postFile (url, data) {
     return axios({
       method: 'post',
-      baseURL: 'http://www.zjytech.cn:8612',
+      baseURL: 'http://www.zjytech.cn:8612/ameson/',
       url,
       data: data,
       timeout: 10000,
       headers: {
-        'X-Requested-With': 'Content-Type',
-        'Content-Type': 'multipart/form-data; charset=UTF-8'
+        'X-Requested-With': 'Content-Type'
+        // 'Content-Type': 'multipart/form-data; charset=UTF-8'
+        // 'Content-Type': 'multipart/form-data; charset=UTF-8'
       }
     }).then(
       (response) => {
