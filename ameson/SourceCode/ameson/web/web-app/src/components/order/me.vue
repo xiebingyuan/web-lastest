@@ -46,7 +46,7 @@
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
         <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea>
-        <x-img src="http://www.zjytech.cn:8081/file/1541343771739.jpg" webp-src="http://www.zjytech.cn:8081/file/1541343771739.jpg" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+        <x-img :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
       </group>
     </div>  
     <tabbar style="position:fixed" v-show="selected!==''">
