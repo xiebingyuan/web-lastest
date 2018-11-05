@@ -131,7 +131,7 @@
       </grid-item>
       </grid>
     </div>
-    <tabbar style="position:fixed">
+    <!-- <tabbar style="position:fixed">
       <tabbar-item  link="/">
         <i slot="icon" class="iconfont icon-shouye icon-grid"></i>
         <span slot="label">Home</span>
@@ -148,7 +148,7 @@
         <i slot="icon" class="iconfont icon-wo1 icon-grid"></i>
         <span slot="label">Me</span>
       </tabbar-item>
-    </tabbar>
+    </tabbar> -->
   </div>
 </template>
 
