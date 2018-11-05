@@ -10,7 +10,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x height="500px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x scrollbarY height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;">
             <thead>
@@ -179,8 +179,8 @@
         }
         let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', params, pageSize, pageNo)
         this.code = res.code
-        this.isInit = true
         this.devices = res.data
+        this.isDiagnose = false
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
@@ -203,6 +203,7 @@
             time: 1500
           })
         } else {
+          // this.isDiagnose = true
           let response = await this.$http.postDeviceCommon('/devBaseInfo/deviceDiagnosis', {devCode: info.devCode})
           if (response.code === 0) {
             this.isDiagnose = true

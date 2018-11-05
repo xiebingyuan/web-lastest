@@ -10,7 +10,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x scrollbarY height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -46,6 +46,7 @@
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
         <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea>
+        <x-img src="http://www.zjytech.cn:8081/file/1541343771739.jpg" webp-src="http://www.zjytech.cn:8081/file/1541343771739.jpg" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
       </group>
     </div>  
     <tabbar style="position:fixed" v-show="selected!==''">
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore } from 'vux'
+  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, XImg } from 'vux'
   export default {
     name: 'FaultList',
     directives: {
@@ -84,7 +85,8 @@
       CellBox,
       Selector,
       Scroller,
-      LoadMore
+      LoadMore,
+      XImg
     },
     data () {
       return {
