@@ -10,7 +10,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x scrollbarY height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x scrollbarY height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;">
             <thead>
@@ -125,7 +125,7 @@
         code: 0,
         devices: {},
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
         diagnoseDevCode: '',
         loadShow: false,
         onFetching: false,
@@ -184,7 +184,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = 6
       },
       resetData () {
         this.devCode = ''
@@ -192,7 +192,7 @@
         this.code = 0
         this.devices = {}
         this.isDiagnose = false
-        this.pageSize = 10
+        this.pageSize = 6
       },
       async diagnose (info) {
         if (info.commStatus !== 1) {
@@ -261,7 +261,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + 6
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

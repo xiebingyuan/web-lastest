@@ -9,7 +9,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>  
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -75,7 +75,7 @@
         // infos: [{custCode: 'A0001', custName: 'aliba'}],
         code: 0,
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
         loadShow: false,
         onFetching: false
       }
@@ -89,7 +89,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = 6
       },
       async syncData () {
         console.info('sync data............')
@@ -104,7 +104,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + 6
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
