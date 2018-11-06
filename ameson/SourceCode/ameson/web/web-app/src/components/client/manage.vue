@@ -348,6 +348,7 @@
       }
       this.typeMap = typeData
       this.seriesMap = seriesdata
+      this.pageSize = this.commonJs.getCommonPageCount()
     },
     methods: {
       async query (pageSize, pageNo) {
@@ -356,7 +357,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       closeListPopup () {
         this.showListPopup = false
@@ -533,7 +534,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             this.queryDevice(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
@@ -547,7 +548,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
