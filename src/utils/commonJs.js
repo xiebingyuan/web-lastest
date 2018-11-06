@@ -76,5 +76,8 @@ export default {
       return userInfo.eBelongArea
     }
     return ''
+  },
+  getCommonPageCount: function () {
+    return 6
   }
 }
