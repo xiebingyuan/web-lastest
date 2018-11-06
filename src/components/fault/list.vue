@@ -8,7 +8,7 @@
       <x-input title="故障码" v-model="faultCode"  placeholder="请输入故障码..."></x-input>
     </group>
     <div>
-      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -96,7 +96,7 @@
         isQuerySuccess: false,
         code: 0,
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
         isPick: false,
         loadShow: false,
         onFetching: false,
@@ -153,13 +153,13 @@
         if (this.infos.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = 6
       },
       resetData () {
         this.isInit = false
         this.code = 0
         this.infos = {}
-        this.pageSize = 10
+        this.pageSize = 6
         this.faultCode = ''
         this.selected = ''
         this.isPick = ''
@@ -218,7 +218,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + 6
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

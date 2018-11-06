@@ -301,7 +301,7 @@
         selectInfo: {},
         code: 0,
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
         selected: '',
         actionType: '',
         loadShow: false,
@@ -356,7 +356,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = 6
       },
       closeListPopup () {
         this.showListPopup = false
@@ -533,7 +533,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + 6
             this.queryDevice(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
@@ -547,7 +547,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + 6
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
