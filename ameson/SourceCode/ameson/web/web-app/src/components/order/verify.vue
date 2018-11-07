@@ -45,7 +45,8 @@
         <cell title="设备编号" v-model="detail.devCode"></cell>
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
-        <x-img v-show="detail.serOrderPath !== ''"  :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+        <img v-show="detail.serOrderPath !== ''" class="previewer-demo-img"  :src="detail.serOrderPath" width="100%" height="80px" @click="show(0)">
+<!--         <x-img v-show="detail.serOrderPath !== ''"  :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img> -->
         <!-- <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea> -->
         <cell title="审核状态" v-model="detail.serOrderExamStatusName"></cell>
         <cell title="工单状态" v-model="detail.serOrderStatusName"></cell>
@@ -124,7 +125,10 @@
           </tabbar> 
         </div>
       </popup>    
-    </div>  
+    </div>
+    <div v-transfer-dom>
+      <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
+    </div>
     <div v-transfer-dom>
       <confirm v-model="showConfirm"
                title="删除确认"
@@ -137,7 +141,7 @@
 </template>
 
 <script>
-  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search, XImg } from 'vux'
+  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search, XImg, Previewer } from 'vux'
   export default {
     name: 'FaultList',
     directives: {
@@ -161,7 +165,8 @@
       Popup,
       Checklist,
       Search,
-      XImg
+      XImg,
+      Previewer
     },
     data () {
       return {
@@ -216,6 +221,20 @@
           serOrderExamStatus: 0,
           handlDesc: '',
           nextHandlUser: ''
+        },
+        list: [{
+          msrc: '',
+          src: '',
+          w: 1000,
+          h: 600
+        }],
+        options: {
+          getThumbBoundsFn (index) {
+            let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
+            let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+            let rect = thumbnail.getBoundingClientRect()
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          }
         }
       }
     },
@@ -299,6 +318,8 @@
         this.detail = this.infos[index]
         this.detail.serOrderStatusName = this.orderStatusMap.get(parseInt(this.infos[index].serOrderStatus))
         this.detail.serOrderExamStatusName = this.statusMap.get(parseInt(this.infos[index].serOrderExamStatus))
+        this.list[0].src = this.detail.serOrderPath
+        this.list[0].msrc = this.detail.serOrderPath
       },
       showVerify () {
         this.showVerifyPopup = true
@@ -447,6 +468,12 @@
       },
       scrollerllerBottom () {
         console.info('scrollerllerBottom')
+      },
+      logIndexChange (arg) {
+        console.log(arg)
+      },
+      show (index) {
+        this.$refs.previewer.show(index)
       }
     }
   }

@@ -46,13 +46,17 @@
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
         <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea>
-        <x-img v-show="detail.serOrderPath !== ''" :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+        <img v-show="detail.serOrderPath !== ''" class="previewer-demo-img"  :src="detail.serOrderPath" width="100%" height="80px" @click="show(0)">
+        <!-- <x-img v-show="detail.serOrderPath !== ''" :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img> -->
       </group>
     </div>  
     <tabbar style="position:fixed" v-show="selected!==''">
       <tabbar-item ><span slot="label" class="submit-btn"></span></tabbar-item>
       <tabbar-item @click.native="referOrder" class="bg-color-orange"><span slot="label" class="submit-btn">催  单</span></tabbar-item>
     </tabbar>
+    <div v-transfer-dom>
+      <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
+    </div>  
     <div v-transfer-dom>
       <confirm v-model="showConfirm"
                title="删除确认"
@@ -65,7 +69,7 @@
 </template>
 
 <script>
-  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, XImg } from 'vux'
+  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, XImg, Previewer } from 'vux'
   export default {
     name: 'FaultList',
     directives: {
@@ -86,7 +90,8 @@
       Selector,
       Scroller,
       LoadMore,
-      XImg
+      XImg,
+      Previewer
     },
     data () {
       return {
@@ -116,6 +121,20 @@
           devCode: '',
           serOrderDesc: '',
           serOrderRemark: ''
+        },
+        list: [{
+          msrc: '',
+          src: '',
+          w: 1000,
+          h: 600
+        }],
+        options: {
+          getThumbBoundsFn (index) {
+            let thumbnail = document.querySelectorAll('.previewer-demo-img')[index]
+            let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+            let rect = thumbnail.getBoundingClientRect()
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+          }
         }
       }
     },
@@ -177,6 +196,8 @@
         this.selected = index
         this.isPick = true
         this.detail = this.infos[index]
+        this.list[0].src = this.detail.serOrderPath
+        this.list[0].msrc = this.detail.serOrderPath
       },
       async referOrder () {
         let req = {}
@@ -251,6 +272,12 @@
       },
       scrollerllerBottom () {
         console.info('scrollerllerBottom')
+      },
+      logIndexChange (arg) {
+        console.log(arg)
+      },
+      show (index) {
+        this.$refs.previewer.show(index)
       }
     }
   }
