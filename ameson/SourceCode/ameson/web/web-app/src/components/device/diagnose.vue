@@ -167,6 +167,7 @@
       }
       this.faultMap = map
       this.netStatusMap = netMap
+      this.pageSize = this.commonJs.getCommonPageCount()
     },
     methods: {
       async query (pageSize, pageNo) {
@@ -184,7 +185,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.devCode = ''
@@ -192,7 +193,7 @@
         this.code = 0
         this.devices = {}
         this.isDiagnose = false
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       async diagnose (info) {
         if (info.commStatus !== 1) {
@@ -229,7 +230,7 @@
       },
       async showDeviceLog (devCode) {
         this.showLog = true
-        let res = await this.$http.postDeviceQuery('/devRunRecord/getDevRunRecordList', {devCode: devCode}, 10, 1)
+        let res = await this.$http.postDeviceQuery('/devRunRecord/getDevRunRecordList', {devCode: devCode}, this.commonJs.getCommonPageCount(), 1)
         if (res.code === 0) {
           this.logInfos = res.data
         }
@@ -261,7 +262,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

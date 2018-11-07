@@ -131,6 +131,9 @@
         remainMeterInfo: ''
       }
     },
+    mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
+    },
     methods: {
       async query (pageSize, pageNo) {
         let formData = {}
@@ -148,13 +151,13 @@
         } else {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.devCode = ''
         this.custCode = ''
         this.code = 0
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
         this.devices = {}
         this.isPwd = false
       },
@@ -215,7 +218,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

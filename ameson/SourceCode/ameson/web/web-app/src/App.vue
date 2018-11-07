@@ -14,6 +14,7 @@ export default {
     receiveMsg (e) {
       // console.log('Got a message!')
       console.log('nMessage: ' + e.data)
+      console.log(this.commonJs.getToken())
       if (this.commonJs.getToken() !== '' && e.data !== '' && e.data !== undefined) {
         let reqData = e.data
         // console.log('current data is ' + (typeof reqData))

@@ -113,6 +113,7 @@
       }
     },
     mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
       let id = this.$route.query.devCode
       if (id) {
         this.reqInfo.devCode = id
@@ -164,14 +165,14 @@
         } else {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.reqInfo.devCode = ''
         this.reqInfo.custCode = ''
         this.code = 0
         this.devices = {}
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       toAdd () {
         this.$router.push({path: '/device/add'})
@@ -206,7 +207,7 @@
             })
           }
         }
-        this.query(6, 1)
+        this.query(this.commonJs.getCommonPageCount(), this.pageNo)
       },
       toModule () {
         if (this.devList.length > 1) {
@@ -239,7 +240,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

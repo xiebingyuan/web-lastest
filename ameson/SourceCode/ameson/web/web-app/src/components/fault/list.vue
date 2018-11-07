@@ -116,6 +116,7 @@
       }
     },
     mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
       var faultId = this.$route.query.faultCode
       if (faultId) {
         this.faultCode = faultId
@@ -153,13 +154,13 @@
         if (this.infos.length === 0) {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.isInit = false
         this.code = 0
         this.infos = {}
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
         this.faultCode = ''
         this.selected = ''
         this.isPick = ''
@@ -218,7 +219,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
