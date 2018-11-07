@@ -10,7 +10,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -82,7 +82,7 @@
         custCode: '',
         code: 0,
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
         loadShow: false,
         onFetching: false,
         noFindMsg: '无符合条件数据！',
@@ -100,6 +100,9 @@
         }
       }
     },
+    mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
+    },
     methods: {
       async query (pageSize, pageNo) {
         let params = {}
@@ -115,7 +118,7 @@
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.devCode = ''
@@ -123,7 +126,7 @@
         this.code = 0
         this.devices = {}
         this.isRepair = false
-        this.pageSize = 10
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       repair (devCode) {
         this.isRepair = true
@@ -177,7 +180,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false

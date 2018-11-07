@@ -75,6 +75,7 @@
       }
     },
     mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
       var seriesdata = new Map()
       var typeData = new Map()
       var dictAll = this.commonJs.getDictInfo()
@@ -95,7 +96,7 @@
       }
       this.typeMap = typeData
       this.seriesMap = seriesdata
-      this.query(5, 1)
+      this.query(this.pageSize, this.pageNo)
     },
     watch: {
     },
@@ -112,7 +113,7 @@
         } else {
           this.code = -1
         }
-        this.pageSize = 5
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       toDetail (devCode) {
         this.$router.push({path: '/device/detail', query: { devCode: devCode }})
@@ -124,7 +125,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 5
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

@@ -10,7 +10,7 @@
     </group>
     <group></group>
     <div>
-      <scroller lock-x height="400px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+      <scroller lock-x height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -124,7 +124,7 @@
         devCode: '',
         custCode: '',
         code: 0,
-        pageSize: 10,
+        pageSize: 6,
         pageNo: 1,
         loadShow: false,
         isLocation: false,
@@ -164,6 +164,7 @@
         }
       }
       this.statusMap = sMap
+      this.pageSize = this.commonJs.getCommonPageCount()
       let id = this.$route.query.devCode
       if (id) {
         this.devCode = id
@@ -187,7 +188,7 @@
         if (response.code === 0 && response.data.length === 0) {
           this.code = -1
         }
-        this.pageSize = 10
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       resetData () {
         this.devCode = ''
@@ -197,7 +198,7 @@
         this.code = 0
         this.isLocation = false
         this.mapShow = false
-        this.pageSize = 10
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       async goLocation (devCode) {
         this.locationCode = devCode
@@ -257,7 +258,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 10
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             console.info(this.pageSize)
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false

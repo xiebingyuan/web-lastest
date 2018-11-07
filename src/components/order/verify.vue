@@ -59,7 +59,7 @@
     </tabbar>
     <div v-transfer-dom>
       <popup v-model="showVerifyPopup" height="100%">
-        <div class="popup1">
+        <div class="popup1" style="padding-bottom:58px;">
            <x-header :left-options="{showBack: false}">
             <a slot="left" @click="closePopup">
               <i slot="icon" class="iconfont icon-guanbi icon-grid"></i>
@@ -218,6 +218,7 @@
       }
     },
     mounted () {
+      this.pageSize = this.commonJs.getCommonPageCount()
       var data = new Map()
       var orderData = new Map()
       var dictAll = this.commonJs.getDictInfo()
@@ -286,7 +287,7 @@
         if (this.infos.length === 0) {
           this.code = -1
         }
-        this.pageSize = 6
+        this.pageSize = this.commonJs.getCommonPageCount()
       },
       choose (index) {
         this.selected = index
@@ -297,6 +298,7 @@
       },
       showVerify () {
         this.showVerifyPopup = true
+        this.getResult()
       },
       closePopup () {
         this.showVerifyPopup = false
@@ -344,7 +346,7 @@
         let reqInfo = {}
         reqInfo.uName = val
         reqInfo.uType = 0
-        let response = await this.$http.postUserQuery('user/qryUserBasicInfoList', reqInfo, 5, 1)
+        let response = await this.$http.postUserQuery('user/qryUserBasicInfoList', reqInfo, 10, 1)
         if (response.code === 0) {
           this.users = response.data
         }
@@ -397,7 +399,7 @@
           return
         }
         this.info.serOrderExamStatus = this.objectListValue[0]
-        this.info.nextHandlUser = this.userIdList[0]
+        this.info.nextHandlUser = this.userIdList[0].uId
         this.info.serOrderNum = this.detail.serOrderNum
         this.info.custCode = this.detail.custCode
         if (this.objectListValue[0] === 1) {
@@ -429,8 +431,7 @@
           this.loadShow = true
           this.onFetching = true
           setTimeout(() => {
-            this.pageSize = this.pageSize + 6
-            console.info(this.pageSize)
+            this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
             this.query(this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
