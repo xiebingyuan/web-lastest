@@ -45,6 +45,7 @@
         <cell title="设备编号" v-model="detail.devCode"></cell>
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
+        <x-img v-show="detail.serOrderPath !== ''"  :src="detail.serOrderPath" :webp-src="detail.serOrderPath" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
         <!-- <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea> -->
         <cell title="审核状态" v-model="detail.serOrderExamStatusName"></cell>
         <cell title="工单状态" v-model="detail.serOrderStatusName"></cell>
@@ -136,7 +137,7 @@
 </template>
 
 <script>
-  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search } from 'vux'
+  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search, XImg } from 'vux'
   export default {
     name: 'FaultList',
     directives: {
@@ -159,7 +160,8 @@
       LoadMore,
       Popup,
       Checklist,
-      Search
+      Search,
+      XImg
     },
     data () {
       return {
@@ -288,6 +290,8 @@
           this.code = -1
         }
         this.pageSize = this.commonJs.getCommonPageCount()
+        this.selected = ''
+        this.isPick = false
       },
       choose (index) {
         this.selected = index
@@ -414,6 +418,9 @@
             time: 1500
           })
           this.showVerifyPopup = false
+          this.selected = ''
+          this.isPick = false
+          this.query(this.pageSize, this.pageNo)
         } else {
           this.$vux.toast.show({
             text: '指派失败!',
