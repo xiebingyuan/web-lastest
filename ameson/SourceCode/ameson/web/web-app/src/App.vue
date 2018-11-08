@@ -15,7 +15,7 @@ export default {
       // console.log('Got a message!')
       console.log('nMessage: ' + e.data)
       console.log(this.commonJs.getToken())
-      if (this.commonJs.getToken() !== '' && e.data !== '' && e.data !== undefined) {
+      if (e.data !== '' && e.data !== undefined) {
         let reqData = e.data
         // console.log('current data is ' + (typeof reqData))
         let uInfo = null
@@ -24,10 +24,10 @@ export default {
         } catch (e) {
         }
         if (uInfo !== null) {
-          // console.log('isTrue')
+          console.log('isTrue')
           this.commonJs.setInitInfo(uInfo)
         } else {
-          // console.info('isFalse')
+          console.info('isFalse')
         }
       }
     },

@@ -156,7 +156,7 @@
         this.isSetup = true
         this.queryTimeSummit(devCode)
         this.queryFileSummit(devCode)
-        this.titleName = '定时启停 ' + devCode 
+        this.titleName = '定时启停 ' + devCode
       },
       async queryTimeSummit (devCode) {
         let response = await this.$http.postDeviceCommon('/taskStartStopDev/getTaskStartStopDev', {devCode: devCode})
