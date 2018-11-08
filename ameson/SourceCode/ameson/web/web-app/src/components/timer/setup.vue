@@ -37,7 +37,7 @@
     </div>
     <div v-if="isSetup">
       <group class="title-background-color">
-        <cell title="定时启停">
+        <cell :title="titleName">
           <i slot="icon" width="20" class="iconfont icon-shezhi1 icon-setup"></i>
         </cell>
       </group>  
@@ -88,6 +88,7 @@
     data () {
       return {
         name: '定时任务',
+        titleName: '定时启停',
         devCode: '',
         custCode: '',
         noFindMsg: '无符合条件数据！',
@@ -148,12 +149,14 @@
         this.custName = ''
         this.code = 0
         this.isSetup = false
+        this.titleName = '定时启停'
       },
       goSetup (devCode) {
         this.setupCode = devCode
         this.isSetup = true
         this.queryTimeSummit(devCode)
         this.queryFileSummit(devCode)
+        this.titleName = '定时启停 ' + devCode 
       },
       async queryTimeSummit (devCode) {
         let response = await this.$http.postDeviceCommon('/taskStartStopDev/getTaskStartStopDev', {devCode: devCode})
@@ -163,7 +166,7 @@
           this.timeInfo.devCode = devCode
           this.timeInfo.taskStartTime = ''
           this.timeInfo.taskStopTime = ''
-          this.timeInfo.taskStatus = ''
+          this.timeInfo.taskStatus = 1
         }
       },
       async queryFileSummit (devCode) {
