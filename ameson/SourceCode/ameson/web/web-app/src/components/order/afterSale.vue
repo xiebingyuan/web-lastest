@@ -54,8 +54,8 @@
         questionClassList: [],
         typeList: [],
         info: {
-          serOrderClassify: '',
-          serOrderType: '',
+          serOrderClassify: 1,
+          serOrderType: 1,
           devCode: '',
           custCode: '',
           serOrderDesc: '',
