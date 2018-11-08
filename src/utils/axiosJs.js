@@ -28,10 +28,13 @@ axios.interceptors.response.use(response => {
 })
 
 console.info(commonJs.getUserInfo())
+// axios.defaults.headers.post['token'] = '123456'
+// axios.defaults.headers.post['uId'] = 'U00025'
+// axios.defaults.headers.post['rlId'] = 'J0001'
 axios.defaults.headers.post['token'] = commonJs.getToken()
 axios.defaults.headers.post['uId'] = commonJs.getUserId()
 axios.defaults.headers.post['rlId'] = commonJs.getRlId()
-// axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
+axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
 console.log('rlId = ' + commonJs.getRlId())
 
 function checkStatus (response) {
@@ -99,6 +102,28 @@ export default {
       url,
       data: {reqInfo: data},
       timeout: 10000,
+      headers: {
+        'X-Requested-With': 'Content-Type',
+        'Content-Type': 'application/json; charset=UTF-8'
+      }
+    }).then(
+      (response) => {
+        return checkStatus(response)
+      }
+    ).then(
+      (res) => {
+        return checkCode(res)
+      }
+    )
+  },
+  postDeviceLongQuery (url, data, pageCount, pageNumber) {
+    return axios({
+      method: 'post',
+      baseURL: 'http://www.zjytech.cn:8622/',
+      // baseURL: 'http://47.100.239.45:8622/',
+      url,
+      data: {reqInfo: data, pageCount: pageCount, pageNumber: pageNumber},
+      timeout: 30000,
       headers: {
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
