@@ -102,7 +102,7 @@
     },
     methods: {
       async query (pageSize, pageNo) {
-        let res = await this.$http.postDeviceQuery('/devBaseInfo/getRunDevList', this.reqInfo, pageSize, pageNo)
+        let res = await this.$http.postDeviceLongQuery('/devBaseInfo/getRunDevList', this.reqInfo, pageSize, pageNo)
         if (res.code === 0 && res.data.length !== 0) {
           this.code = res.code
           this.devices = res.data
