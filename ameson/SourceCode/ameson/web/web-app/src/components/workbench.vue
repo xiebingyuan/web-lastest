@@ -115,7 +115,7 @@
       <grid>
         <grid-item :link="{ path: '/client/list'}">
           <i slot="icon" class="iconfont icon-kehuchaxun icon-grid"></i>
-          <span class="icon-span">客服查询</span>
+          <span class="icon-span">客户查询</span>
         </grid-item>
         <grid-item :link="{ path: '/client/manage'}">
           <i slot="icon" class="iconfont icon-xiaoshouguanli icon-grid color-red"></i>
