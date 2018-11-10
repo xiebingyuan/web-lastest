@@ -86,7 +86,7 @@
     methods: {
       async query (pageSize, pageNo) {
         let res = await this.$http.postDeviceQuery('/custInfo/getCustInfoList', this.reqInfo, pageSize, pageNo)
-        // this.infos = res.data
+        this.infos = res.data
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }

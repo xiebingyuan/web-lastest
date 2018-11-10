@@ -58,6 +58,7 @@ export default {
   },
   getRlId: function () {
     var rlId = window.localStorage.getItem('rlId')
+    console.log('rlId = ' + rlId)
     if (rlId === '' || rlId === null || rlId === 'undefined') {
       return null
     }
@@ -73,7 +74,7 @@ export default {
   getBelongArea: function () {
     var userInfo = this.getUserInfo()
     if (userInfo != null) {
-      return userInfo.eBelongArea
+      return userInfo.uBelongArea
     }
     return ''
   },

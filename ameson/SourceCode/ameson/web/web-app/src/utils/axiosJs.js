@@ -31,10 +31,10 @@ console.info(commonJs.getUserInfo())
 // axios.defaults.headers.post['token'] = '123456'
 // axios.defaults.headers.post['uId'] = 'U00025'
 // axios.defaults.headers.post['rlId'] = 'J0001'
-axios.defaults.headers.post['token'] = commonJs.getToken()
-axios.defaults.headers.post['uId'] = commonJs.getUserId()
-axios.defaults.headers.post['rlId'] = commonJs.getRlId()
-axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
+// axios.defaults.headers.post['token'] = commonJs.getToken()
+// axios.defaults.headers.post['uId'] = commonJs.getUserId()
+// axios.defaults.headers.post['rlId'] = commonJs.getRlId()
+// axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
 console.log('rlId = ' + commonJs.getRlId())
 
 function checkStatus (response) {
@@ -81,6 +81,10 @@ export default {
       data: {reqInfo: data, pageCount: 5, pageNumber: 1},
       timeout: 10000,
       headers: {
+        'token': commonJs.getToken(),
+        'uId': commonJs.getUserId(),
+        'rlId': commonJs.getRlId(),
+        'uBelongArea': commonJs.getBelongArea(),
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
       }
@@ -103,6 +107,10 @@ export default {
       data: {reqInfo: data},
       timeout: 10000,
       headers: {
+        'token': commonJs.getToken(),
+        'uId': commonJs.getUserId(),
+        'rlId': commonJs.getRlId(),
+        'uBelongArea': commonJs.getBelongArea(),
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
       }
@@ -125,6 +133,10 @@ export default {
       data: {reqInfo: data, pageCount: pageCount, pageNumber: pageNumber},
       timeout: 30000,
       headers: {
+        'token': commonJs.getToken(),
+        'uId': commonJs.getUserId(),
+        'rlId': commonJs.getRlId(),
+        'uBelongArea': commonJs.getBelongArea(),
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
       }
@@ -147,6 +159,10 @@ export default {
       data: {reqInfo: data, pageCount: pageCount, pageNumber: pageNumber},
       timeout: 10000,
       headers: {
+        'token': commonJs.getToken(),
+        'uId': commonJs.getUserId(),
+        'rlId': commonJs.getRlId(),
+        'uBelongArea': commonJs.getBelongArea(),
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
       }
@@ -169,6 +185,10 @@ export default {
       data: {reqInfo: data},
       timeout: 10000,
       headers: {
+        'token': commonJs.getToken(),
+        'uId': commonJs.getUserId(),
+        'rlId': commonJs.getRlId(),
+        'uBelongArea': commonJs.getBelongArea(),
         'X-Requested-With': 'Content-Type',
         'Content-Type': 'application/json; charset=UTF-8'
       }

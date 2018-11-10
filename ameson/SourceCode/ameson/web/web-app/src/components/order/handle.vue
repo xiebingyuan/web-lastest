@@ -11,7 +11,7 @@
             <thead>
               <tr style="background-color: #F7F7F7">
                 <th>工单号</th>
-                <th>处理状态</th>
+                <th>工单状态</th>
                 <th>提交时间</th>
               </tr>
             </thead>
@@ -40,7 +40,8 @@
         <cell title="设备编号" v-model="detail.devCode"></cell>
         <!-- <x-input title="设备编号" disabled v-model="detail.devCode"></x-input> -->
         <x-textarea title="问题描述" disabled v-model="detail.serOrderDesc"></x-textarea>
-        <selector ref="defaultValueRef" title="状态" readonly class="floatLeft" direction="rtl"  :options="orderStatusList" v-model="info.orderStatus"></selector>
+        <cell title="工单状态" v-model="detail.serOrderStatusName"></cell>
+<!--         <selector ref="defaultValueRef" title="状态" readonly class="floatLeft" direction="rtl"  :options="orderStatusList" v-model="info.orderStatus"></selector> -->
         <x-textarea :max="200" title="处理反馈" placeholder="请输入处理反馈..." v-model="info.handlDesc" :show-counter="false"></x-textarea>
         <cell title="上传图片"><input type="file" ref="file" @change="uploadFile"/></cell> 
         <!-- <x-textarea title="工单备注" disabled v-model="detail.serOrderRemark"></x-textarea> -->
@@ -196,12 +197,13 @@
     methods: {
       async query (pageSize, pageNo) {
         this.selected = ''
-        let response = await this.$http.postDeviceQuery('/serviceOrder/getServiceOrderList', this.reqInfo, pageSize, pageNo)
+        let response = await this.$http.postDeviceQuery('/serviceOrder/getWaitHandleList', this.reqInfo, pageSize, pageNo)
         this.code = response.code
         this.isInit = true
         this.infos = response.data
+        console.log(this.statusMap)
         for (var i = this.infos.length - 1; i >= 0; i--) {
-          this.infos[i].statusName = this.statusMap.get(parseInt(this.infos[i].serOrderExamStatus))
+          this.infos[i].statusName = this.orderStatusMap.get(parseInt(this.infos[i].serOrderStatus))
         }
         if (this.infos.length === 0) {
           this.code = -1
@@ -212,6 +214,8 @@
         this.selected = index
         this.isPick = true
         this.detail = this.infos[index]
+        console.log(this.infos[index].serOrderStatus)
+        console.log(this.orderStatusMap)
         this.detail.serOrderStatusName = this.orderStatusMap.get(parseInt(this.infos[index].serOrderStatus))
         this.detail.serOrderExamStatusName = this.statusMap.get(parseInt(this.infos[index].serOrderExamStatus))
       },

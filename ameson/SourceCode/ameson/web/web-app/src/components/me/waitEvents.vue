@@ -69,7 +69,7 @@
         }
       },
       process (info) {
-        console.info(info)
+        this.$router.push({path: '/order/handle', query: {}})
         // this.$router.push({path: '/standard/edit', query: { serOrderNum: orderId }})
       }
     }

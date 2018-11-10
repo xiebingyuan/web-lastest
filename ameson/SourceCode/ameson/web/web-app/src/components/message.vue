@@ -4,7 +4,7 @@
       <div class="overwrite-title-demo" slot="overwrite-title">
         <button-tab>
           <button-tab-item @on-item-click="itemClick(1)" selected>未读</button-tab-item>
-          <button-tab-item @on-item-click="itemClick(2)">已读</button-tab-item>
+          <button-tab-item @on-item-click="itemClick(2)" >已读</button-tab-item>
         </button-tab>
       </div>
     </x-header>
@@ -148,8 +148,10 @@
           }
         }
       },
-      async setRead () {
-        let req = await this.$http.postDeviceCommon('/msgSysMessage/upMsgSysMessage', this.setReq)
+      async setRead (uuid) {
+        let reqInfo = {}
+        reqInfo.uuid = uuid
+        let req = await this.$http.postDeviceCommon('/msgSysMessage/upMsgSysMessage', reqInfo)
         if (req.code === 0) {
           console.info('set message to read success')
         } else {
@@ -159,6 +161,7 @@
       toDetail (info) {
         console.info(info)
         this.$router.push({path: '/me/messageDetail', query: { message: info }})
+        this.setRead(info.uuid)
       },
       itemClick (type) {
         if (type === 1) {
@@ -168,7 +171,7 @@
         } else {
           this.unread = false
           this.alreadyread = true
-          this.setRead()
+          // this.setRead()
           this.queryAlready()
         }
       }
