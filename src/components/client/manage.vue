@@ -51,9 +51,9 @@
               </thead>
               <tbody v-for="(device,index) in devices" :class="{ 'select-status': index === selected }" track-by="$index" @click="choose(index)">
               <tr>
-                <td class="tableTd">{{device.custCode}}</td>
-                <td class="tableTd">{{device.custCode}}</td>
-                <td class="tableTd">{{device.custName}}</td>
+                <td class="tableTd">{{device.devCode}}</td>
+                <td class="tableTd">{{device.devTypeName}}</td>
+                <td class="tableTd">{{device.devSeriesName}}</td>
               </tr>
               </tbody>
             </x-table>
@@ -122,8 +122,8 @@
             </x-header>
             <group>
               <x-input title="设备编号" v-model="selectReq.devCode"  placeholder="请输入设备编号..."></x-input>
-              <selector ref="defaultValueRef" title="设备系列" readonly :options="seriesList" v-model="selectReq.devSeries"></selector>
-              <selector ref="defaultValueRef" title="设备类型" readonly :options="typeList" v-model="selectReq.devType"></selector>
+              <selector ref="defaultValueRef" title="设备系列"  :options="seriesList" v-model="selectReq.devSeries"></selector>
+              <selector ref="defaultValueRef" title="设备类型"  :options="typeList" v-model="selectReq.devType"></selector>
             </group>
             <group></group>
             <div style="padding-bottom:58px;">
@@ -293,8 +293,8 @@
         },
         selectReq: {
           devCode: '',
-          devType: '',
-          devSeries: ''
+          devType: 3,
+          devSeries: 1
         },
         infos: [], // 客户销售列表
         // infos: [{custCode: 'C001', custName: 'aliba'}], // 客户销售列表
@@ -319,6 +319,7 @@
     mounted () {
       var seriesdata = new Map()
       var typeData = new Map()
+      var data = new Map()
       var dictAll = this.commonJs.getDictInfo()
       for (var i = 0; i < dictAll.length; i++) {
         let dict = dictAll[i]
@@ -345,15 +346,22 @@
           let newInfo = {key: key, value: name}
           this.areaList.push(newInfo)
         }
+        // 通信模块注册状态
+        if (dict.dictParentId === 70) {
+          let key = dict.dictTypeValue
+          let name = dict.dictTypeCname
+          data.set(key, name)
+        }
       }
+      this.commMap = data
       this.typeMap = typeData
       this.seriesMap = seriesdata
       this.pageSize = this.commonJs.getCommonPageCount()
     },
     methods: {
       async query (pageSize, pageNo) {
-        let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', this.reqInfo, pageSize, pageNo)
-        // this.infos = res.data
+        let res = await this.$http.postDeviceQuery('/custInfo/getCustInfoList', this.reqInfo, pageSize, pageNo)
+        this.infos = res.data
         if (this.code === 0 && res.data.length === 0) {
           this.code = -1
         }
@@ -371,6 +379,12 @@
         let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', r, 100, 1)
         if (res.code === 0) {
           this.devices = res.data
+          if (this.devices.length > 0) {
+            for (var i = this.devices.length - 1; i >= 0; i--) {
+              this.devices[i].devTypeName = this.typeMap.get(this.devices[i].devType)
+              this.devices[i].devSeriesName = this.seriesMap.get(this.devices[i].devSeries)
+            }
+          }
         }
       },
       choose (index) {
@@ -412,12 +426,14 @@
         }
         if (res.code === 0) {
           this.$vux.toast.show({
-            text: '保存失败，请重新提交!',
+            text: '保存成功!',
             position: 'middle',
-            type: 'warn',
+            type: 'success',
             time: 1500
           })
+          this.showAddPopup = false
           this.showDevicePopup = false
+          this.process(this.selectInfo)
         } else {
           this.$vux.toast.show({
             text: '保存失败，请重新提交!',
@@ -428,15 +444,23 @@
         }
       },
       async queryDevice (pageSize, pageNo) {
-        let reqInfo = {}
-        reqInfo.custCode = this.selectInfo.custCode
-        let res = await this.$http.postDeviceQuery('/devBaseInfo/getDevBaseInfoList', reqInfo, pageSize, pageNo)
+        // let reqInfo = {}
+        // reqInfo.custCode = this.selectInfo.custCode
+        let res = await this.$http.postDeviceQuery('/devBaseInfo/getCanSaleDevList', this.selectReq, pageSize, pageNo)
         if (res.code === 0) {
           this.deviceList = res.data
+          if (this.devices.length > 0) {
+            for (var i = this.devices.length - 1; i >= 0; i--) {
+              this.devices[i].commStatusName = this.commMap.get(this.devices[i].commStatus)
+            }
+          }
         }
       },
       resetDeviceData () {
-        this.selectReq = {}
+        this.selectReq.devCode = ''
+        this.selectReq.devType = 3
+        this.selectReq.devSeries = 1
+        this.deviceList = []
       },
       select () {
         if (this.devList.length === 0) {
@@ -517,7 +541,7 @@
         console.info('cancle operation..')
       },
       onAreaConfirm () {
-        this.deviceInfo.areaCode = this.selectAreaInfo.key
+        this.deviceInfo.areaCode = this.selectAreaInfo.key + ''
         this.deviceInfo.areaName = this.selectAreaInfo.value
         this.showAreaPopup = false
       },
