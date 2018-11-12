@@ -81,10 +81,17 @@
         list: [{
           src: 'https://img.zcool.cn/community/01514355cdbab56ac725baa0130899.jpg@1280w_1l_2o_100sh.webp',
           fallbackSrc: 'https://img.zcool.cn/community/01514355cdbab56ac725baa0130899.jpg@1280w_1l_2o_100sh.webp',
-          title: '陈国坤',
+          title: 'XXX',
           desc: '系统管理员',
           url: '/me'
         }]
+      }
+    },
+    mounted () {
+      let userInfo = this.commonJs.getUserInfo()
+      if (userInfo != null) {
+        this.list[0].title = userInfo.userName
+        this.list[0].desc = userInfo.rlName
       }
     },
     methods: {
