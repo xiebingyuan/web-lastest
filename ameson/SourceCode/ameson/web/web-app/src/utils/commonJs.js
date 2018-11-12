@@ -80,5 +80,13 @@ export default {
   },
   getCommonPageCount: function () {
     return 6
+  },
+  getMenuList: function () {
+    var userInfo = this.getUserInfo()
+    console.log(userInfo)
+    if (userInfo === null || userInfo.tbSysMenuList === null || userInfo.tbSysMenuList === undefined) {
+      return null
+    }
+    return userInfo.tbSysMenuList
   }
 }
