@@ -25,7 +25,7 @@
               <td class="tableTd">{{device.devCode}}</td>
               <td class="tableTd">{{device.custName}}</td>
               <td>
-                <x-button mini plain type="primary" @click.native="queryPwd(device.devCode, device.deviceId)">查询密码组</x-button>
+                <x-button mini plain type="primary" @click.native="queryPwd(device.devCode, device.custName, device.deviceId)">查询密码组</x-button>
                 <x-button mini plain type="primary" @click.native="goDetail(device.devCode)">详情</x-button>
               </td>
             </tr>
@@ -161,7 +161,7 @@
         this.devices = {}
         this.isPwd = false
       },
-      async queryPwd (devCode, deviceId) {
+      async queryPwd (devCode, custName, deviceId) {
         let response = await this.$http.postDeviceCommon('/devPasswordGroup/getPasswordGroup', {devCode: devCode})
         this.deviceId = deviceId
         if (response.code === 0 && response.data !== '') {
@@ -169,6 +169,7 @@
           this.isPwd = true
           this.confirmTitle = '当前所在第' + response.data.passCurrUsedPosition + '组密码,密码为' + this.pwdInfo.passCurrPass
           this.confirmContent = '您确认为设备' + this.pwdInfo.devCode + '使用' + this.pwdInfo.passCurrPass + '密码组?'
+          this.pwdInfo.custName = custName
         } else {
           this.$vux.toast.show({
             text: '没有找到相关的密码组信息!',
@@ -230,7 +231,7 @@
         console.info('scrollerllerBottom')
       },
       goParam () {
-        window.location.href = 'http://120.25.251.207:8612/ameson/parameter?deviceId=' + this.deviceId
+        window.location.href = 'http://www.zjytech.cn:8612/ameson/parameter?deviceId=' + this.deviceId
       }
     }
   }

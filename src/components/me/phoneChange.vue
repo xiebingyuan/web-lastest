@@ -107,7 +107,7 @@
           })
           this.$router.push({path: '/me', query: {}})
         } else {
-          let message = res.data
+          let message = res.msg
           this.$vux.toast.show({
             text: message,
             position: 'middle',

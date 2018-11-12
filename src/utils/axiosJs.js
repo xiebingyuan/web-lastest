@@ -27,7 +27,6 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(error.response)
 })
 
-console.info(commonJs.getUserInfo())
 // axios.defaults.headers.post['token'] = '123456'
 // axios.defaults.headers.post['uId'] = 'U00025'
 // axios.defaults.headers.post['rlId'] = 'J0001'
@@ -35,7 +34,6 @@ console.info(commonJs.getUserInfo())
 // axios.defaults.headers.post['uId'] = commonJs.getUserId()
 // axios.defaults.headers.post['rlId'] = commonJs.getRlId()
 // axios.defaults.headers.post['uBelongArea'] = commonJs.getBelongArea()
-console.log('rlId = ' + commonJs.getRlId())
 
 function checkStatus (response) {
   // loading
