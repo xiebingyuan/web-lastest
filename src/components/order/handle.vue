@@ -52,7 +52,7 @@
         <cell title="审批情况" v-model="detail.devCode"></cell> -->
       </group>
     </div>  
-    <tabbar style="position:fixed" v-show="selected!=='' && detail.serOrderExamStatus === 0">
+    <tabbar style="position:fixed" v-show="selected!=='' && detail.serOrderStatus === 2">
       <tabbar-item ><span slot="label" class="submit-btn"></span></tabbar-item>
       <tabbar-item @click.native="handleData" class="bg-color-orange"><span slot="label" class="submit-btn">处  理</span></tabbar-item>
     </tabbar>

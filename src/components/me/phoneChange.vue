@@ -107,8 +107,9 @@
           })
           this.$router.push({path: '/me', query: {}})
         } else {
+          let message = res.data
           this.$vux.toast.show({
-            text: '更新失败!',
+            text: message,
             position: 'middle',
             type: 'warn',
             time: 1500
