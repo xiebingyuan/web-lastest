@@ -60,7 +60,7 @@
     },
     methods: {
       async query (pageSize, pageNo) {
-        let res = await this.$http.postDeviceQuery('/serviceOrder/getWaitHandleList', {}, pageSize, pageNo)
+        let res = await this.$http.postDeviceQuery('/serviceOrder/getMyWaitDone', {}, pageSize, pageNo)
         if (res.code === 0) {
           this.infos = res.data
           for (var i = this.infos.length - 1; i >= 0; i--) {
@@ -69,8 +69,12 @@
         }
       },
       process (info) {
-        this.$router.push({path: '/order/handle', query: {}})
-        // this.$router.push({path: '/standard/edit', query: { serOrderNum: orderId }})
+        // 1. 工单审核  2 工单处理
+        if (info.serOrderStatus === 1) {
+          this.$router.push({path: '/order/verify', query: {}})
+        } else if (info.serOrderStatus === 2) {
+          this.$router.push({path: '/order/handle', query: {}})
+        }
       }
     }
   }

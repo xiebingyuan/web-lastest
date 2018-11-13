@@ -4,8 +4,12 @@
       <!-- <a slot="right" @click="query(pageSize, pageNo)">查询</a> -->
     </x-header>
     <group></group>
-    <div>
-      <scroller lock-x height="300px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
+    <button-tab>
+      <button-tab-item @on-item-click="itemClick(1)" selected>待处理</button-tab-item>
+      <button-tab-item @on-item-click="itemClick(2)">已处理</button-tab-item>
+    </button-tab>
+    <div style="padding-top: 10px;">
+      <scroller lock-x height="250px" @on-scroll-bottom="onScrollBottom" ref="scrollerllerBottom" :scroll-bottom-offst="200">
         <div>
           <x-table full-bordered style="background-color:#fff;" >
             <thead>
@@ -68,7 +72,7 @@
 </template>
 
 <script>
-  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search } from 'vux'
+  import { Confirm, TransferDom, XHeader, Group, XButton, XInput, XTable, Cell, Tabbar, TabbarItem, XTextarea, CellBox, Selector, Scroller, LoadMore, Popup, Checklist, Search, ButtonTab, ButtonTabItem } from 'vux'
   export default {
     name: 'HandlerOrder',
     directives: {
@@ -91,7 +95,9 @@
       LoadMore,
       Popup,
       Checklist,
-      Search
+      Search,
+      ButtonTab,
+      ButtonTabItem
     },
     data () {
       return {
@@ -116,8 +122,11 @@
         orderStatusList: [],
         showConfirm: false,
         objectListValue: [],
-        infos: {},
+        infos: [],
         searchValue: '',
+        waitOrderShow: true,
+        handleOrderShow: false,
+        url: '',
         reqInfo: {
           serOrderStatus: '',
           serOrderType: '',
@@ -187,7 +196,8 @@
       }
       this.statusMap = data
       this.orderStatusMap = orderData
-      this.query(this.pageSize, this.pageNo)
+      this.url = '/serviceOrder/getWaitHandleList'
+      this.query(this.url, this.pageSize, this.pageNo)
     },
     watch: {
       objectListValue: function (val, oldVal) {
@@ -195,9 +205,10 @@
       }
     },
     methods: {
-      async query (pageSize, pageNo) {
+      async query (url, pageSize, pageNo) {
         this.selected = ''
-        let response = await this.$http.postDeviceQuery('/serviceOrder/getWaitHandleList', this.reqInfo, pageSize, pageNo)
+        this.infos = []
+        let response = await this.$http.postDeviceQuery(url, this.reqInfo, pageSize, pageNo)
         this.code = response.code
         this.isInit = true
         this.infos = response.data
@@ -209,6 +220,20 @@
           this.code = -1
         }
         this.pageSize = this.commonJs.getCommonPageCount()
+      },
+      itemClick (type) {
+        console.log('change type = ' + type)
+        if (type === 1) {
+          this.waitOrderShow = true
+          this.handleOrderShow = false
+          this.url = '/serviceOrder/getWaitHandleList'
+          this.query(this.url, this.pageSize, this.pageNo)
+        } else {
+          this.waitOrderShow = false
+          this.handleOrderShow = true
+          this.url = '/serviceOrder/getMyHandleList'
+          this.query(this.url, this.pageSize, this.pageNo)
+        }
       },
       choose (index) {
         this.selected = index
@@ -274,7 +299,7 @@
         let res = await this.$http.postDeviceCommon('/serviceOrder/handleServiceOrder', this.info)
         if (res.code === 0) {
           this.$vux.toast.show({
-            text: '删除成功!',
+            text: '处理成功!',
             position: 'middle',
             type: 'success',
             time: 1500
@@ -283,7 +308,7 @@
           this.isPick = false
         } else {
           this.$vux.toast.show({
-            text: '删除失败!',
+            text: '处理失败!',
             position: 'middle',
             type: 'warn',
             time: 1500
@@ -310,7 +335,7 @@
           this.onFetching = true
           setTimeout(() => {
             this.pageSize = this.pageSize + this.commonJs.getCommonPageCount()
-            this.query(this.pageSize, this.pageNo)
+            this.query(this.url, this.pageSize, this.pageNo)
             this.onFetching = false
             this.loadShow = false
           }, 1000)
