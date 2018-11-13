@@ -88,11 +88,13 @@
       }
     },
     mounted () {
-      let userInfo = this.commonJs.getUserInfo()
-      if (userInfo != null) {
-        this.list[0].title = userInfo.userName
-        this.list[0].desc = userInfo.rlName
-      }
+      this.list[0].title = this.commonJs.getUserName()
+      this.list[0].desc = this.commonJs.getUserRole()
+      // let userInfo = this.commonJs.getUserInfo()
+      // if (userInfo != null) {
+      //   this.list[0].title = userInfo.userName
+      //   this.list[0].desc = userInfo.rlName
+      // }
     },
     methods: {
     }

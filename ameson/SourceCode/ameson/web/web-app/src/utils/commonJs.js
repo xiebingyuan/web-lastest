@@ -35,11 +35,11 @@ export default {
     return JSON.parse(data)
   },
   getUserId: function () { // set userId to localStorage when user login
-    var userInfo = this.getUserInfo()
-    if (userInfo != null) {
-      return userInfo.uId
+    var userInfo = this.getUserBaseInfo()
+    if (userInfo === null) {
+      return null
     }
-    return ''
+    return userInfo.uId
   },
   getUserInfo: function () {
     var userInfo = window.localStorage.getItem('userInfo')
@@ -72,11 +72,11 @@ export default {
     return ''
   },
   getBelongArea: function () {
-    var userInfo = this.getUserInfo()
-    if (userInfo != null) {
-      return userInfo.uBelongArea
+    var userInfo = this.getUserBaseInfo()
+    if (userInfo === null) {
+      return null
     }
-    return ''
+    return userInfo.uBelongArea
   },
   getCommonPageCount: function () {
     return 6
@@ -88,5 +88,33 @@ export default {
       return null
     }
     return userInfo.tbSysMenuList
+  },
+  getUserBaseInfo: function () {
+    var userInfo = this.getUserInfo()
+    if (userInfo === null || userInfo.tbSysUserBaseInfo === null || userInfo.tbSysUserBaseInfo === undefined) {
+      return null
+    }
+    return userInfo.tbSysUserBaseInfo
+  },
+  getUserName: function () {
+    var tbUserBaseInfo = this.getUserBaseInfo()
+    if (tbUserBaseInfo === null) {
+      return null
+    }
+    return tbUserBaseInfo.uName
+  },
+  getUserRoleInfo: function () {
+    var userInfo = this.getUserInfo()
+    if (userInfo === null || userInfo.tbSysRole === null || userInfo.tbSysRole === undefined) {
+      return null
+    }
+    return userInfo.tbSysRole
+  },
+  getUserRole: function () {
+    var roleInfo = this.getUserRoleInfo()
+    if (roleInfo === null) {
+      return null
+    }
+    return roleInfo.rlName
   }
 }
