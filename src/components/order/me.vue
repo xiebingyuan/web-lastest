@@ -120,7 +120,8 @@
           serOrderClassify: 0,
           devCode: '',
           serOrderDesc: '',
-          serOrderRemark: ''
+          serOrderRemark: '',
+          serOrderNum: ''
         },
         list: [{
           msrc: '',
@@ -201,11 +202,12 @@
       },
       async referOrder () {
         let req = {}
-        req.msgType = 7
-        req.msgDesc = '您有一条工单,请及时处理!'
-        req.uId = this.commonJs.getUuid()
-        req.rlId = this.commonJs.getRlId()
-        let response = await this.$http.postDeviceCommon('/msgSysMessage/addMsgSysMessage', req)
+        req.serOrderNum = this.detail.serOrderNum
+        // req.msgType = 7
+        // req.msgDesc = '您有一条工单,请及时处理!'
+        // req.uId = this.commonJs.getUuid()
+        // req.rlId = this.commonJs.getRlId()
+        let response = await this.$http.postDeviceCommon('/serviceOrder/pushOrder', req)
         if (response.code === 0) {
           this.$vux.toast.show({
             text: '催单成功!',
